@@ -1,9 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: flex-end; width: 100%;">
-        <ui:VisualElement style="flex-grow: initial; width: 10%;" />
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: column; justify-content: flex-start; width: 100%; align-items: flex-end;">
         <ui:VisualElement name="VisualElement" style="flex-grow: initial; width: 70%;">
             <ui:VisualElement name="VisualElement" style="flex-grow: initial; flex-direction: row; justify-content: space-around; width: 100%;">
-                <ui:Button text="Duck 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Placeolder" style="visibility: hidden; display: flex;" />
+                <ui:Button text="Duck 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Placeholder" style="visibility: hidden; display: flex;" />
                 <ui:Label tabindex="-1" text="Jump" parse-escape-sequences="true" display-tooltip-when-elided="true" />
                 <ui:Label tabindex="-1" text="Left" parse-escape-sequences="true" display-tooltip-when-elided="true" />
                 <ui:Label tabindex="-1" text="Duck" parse-escape-sequences="true" display-tooltip-when-elided="true" />
@@ -18,11 +17,14 @@
             </ui:VisualElement>
             <ui:VisualElement name="VisualElement" style="flex-grow: initial; flex-direction: row; justify-content: space-around; width: 100%;">
                 <ui:Button text="Duck 2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="player2ActivateButton" />
-                <ui:Label tabindex="-1" text="-" parse-escape-sequences="true" display-tooltip-when-elided="true" name="player2UpLabelButton" />
+                <ui:Label tabindex="-1" text="-" parse-escape-sequences="true" display-tooltip-when-elided="true" name="player2UpLabel" />
                 <ui:Label tabindex="-1" text="-" parse-escape-sequences="true" display-tooltip-when-elided="true" name="player2LeftLabel" />
                 <ui:Label tabindex="-1" text="-" parse-escape-sequences="true" display-tooltip-when-elided="true" name="player2DuckLabel" />
                 <ui:Label tabindex="-1" text="-" parse-escape-sequences="true" display-tooltip-when-elided="true" name="player2RightLabel" />
             </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="VisualElement" style="flex-grow: initial; width: 70%; align-items: center;">
+            <ui:Button text="Play" parse-escape-sequences="true" display-tooltip-when-elided="true" name="playButton" style="width: 30%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

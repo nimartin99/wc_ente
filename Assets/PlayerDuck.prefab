@@ -144,10 +144,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duckModel: {fileID: 778276806666621188}
-  keyUp: 119
-  keyLeft: 97
-  keyDuck: 115
-  keyRight: 100
+  keyUp: 0
+  keyLeft: 0
+  keyDuck: 0
+  keyRight: 0
   horizontalSpeed: 0.4
   jumpForce: 1
   groundLayer:

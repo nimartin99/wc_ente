@@ -3,8 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PipeScript : MonoBehaviour {
+    public static PipeScript Instance { get; private set; }
     // The amount of force with which the ducks are pulled towards the pipe
     [SerializeField] private float gravity;
+    
+    private void Awake() {
+        if (Instance != null && Instance != this) { 
+            Destroy(this); 
+        } 
+        else { 
+            Instance = this; 
+        }
+    }
 
     public void Attract(Transform attractTransform) {
         Vector3 gravityDown = (transform.position - attractTransform.position).normalized;

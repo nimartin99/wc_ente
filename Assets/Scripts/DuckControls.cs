@@ -6,10 +6,10 @@ using UnityEngine;
 public class DuckControls : MonoBehaviour
 {
     [SerializeField] private GameObject duckModel;
-    [SerializeField] private KeyCode keyUp = KeyCode.W;
-    [SerializeField] private KeyCode keyLeft = KeyCode.A;
-    [SerializeField] private KeyCode keyDuck = KeyCode.S;
-    [SerializeField] private KeyCode keyRight = KeyCode.D;
+    [SerializeField] public KeyCode keyUp;
+    [SerializeField] public KeyCode keyLeft;
+    [SerializeField] public KeyCode keyDuck;
+    [SerializeField] public KeyCode keyRight;
 
     [SerializeField] private float horizontalSpeed = 0.4f;
     [SerializeField] private float jumpForce = 2f;
