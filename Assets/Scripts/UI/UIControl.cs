@@ -14,7 +14,7 @@ public class UIControl : MonoBehaviour
     private List<PlayerInfo> _players = new List<PlayerInfo>();
 
     private int playerCapturing = -1;
-    private int currentCaptureKey = -1;
+    private int currentCaptureKey = 0;
     
     private void Awake() {
         if (Instance != null && Instance != this) { 
@@ -57,12 +57,17 @@ public class UIControl : MonoBehaviour
             _players[i].playerDuckLabel = root.Q<Label>("player" + (i + 1) + "DuckLabel");
             _players[i].playerRightLabel = root.Q<Label>("player" + (i + 1) + "RightLabel");
 
-            _players[i].activateButton.clicked += () => { playerCapturing = i; };
+            _players[i].activateButton.RegisterCallback<ClickEvent>(ActivateCapturing);
         }
+    }
+    
+    private void ActivateCapturing(ClickEvent clickEvent) {
+        VisualElement target = (Button) clickEvent.target;
+        
     }
 
     private void Update() {
-        if ((playerCapturing != -1 && currentCaptureKey >= 0 && currentCaptureKey <= 3) && Input.anyKeyDown) {
+        if ((playerCapturing != -1 && currentCaptureKey <= 3) && Input.anyKeyDown) {
             foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode))) {
                 if (Input.GetKey(keyCode)) {
                     PlayerInfo player = _players[playerCapturing];
