@@ -19,6 +19,7 @@ public class UIControl : MonoBehaviour
 
     private Button _playButton;
     
+    
     private void Awake() {
         if (Instance != null && Instance != this) { 
             Destroy(this); 
