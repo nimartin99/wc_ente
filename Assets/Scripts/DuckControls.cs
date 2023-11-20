@@ -5,81 +5,56 @@ using UnityEngine;
 
 public class DuckControls : MonoBehaviour
 {
-    [SerializeField] private GameObject duckModel;
-    [SerializeField] public KeyCode keyUp;
-    [SerializeField] public KeyCode keyLeft;
-    [SerializeField] public KeyCode keyDuck;
-    [SerializeField] public KeyCode keyRight;
+    public KeyCode keyUp = KeyCode.W;
+    public KeyCode keyLeft = KeyCode.A;
+    public KeyCode keyDuck = KeyCode.S;
+    public KeyCode keyRight = KeyCode.D;
+    //radius of pipe
+    public float radius = 0.45f;
+    //player model
+    public Transform duck;
+    //gravity factor
+    public float gravity = 1;
 
-    [SerializeField] private float horizontalSpeed = 0.4f;
-    [SerializeField] private float jumpForce = 2f;
-    [SerializeField] private LayerMask groundLayer;
+    public float horizontalSpeed = 1.0f;
+    public float jumpForce = 10f;
+    private LayerMask groundLayer;
     public bool _isGrounded;
-    
-    [SerializeField] private Transform anchor;
     private float _initialZPos;
+    private float bounceForce = 10.0f; // Die Kraft, mit der die Spieler abprallen.
     private Rigidbody rb;
-    [SerializeField] private float bounceForce = 10.0f; // Die Kraft, mit der die Spieler abprallen.
-
-    private void Start() {
-        _initialZPos = transform.position.z;
-        rb = GetComponent<Rigidbody>();
+    
+    private void Start()
+    {
+        rb = duck.GetComponent<Rigidbody>();
     }
 
     void Update() {
-        transform.position = new Vector3(transform.position.x, transform.position.y, _initialZPos);
-        _isGrounded = Physics.Raycast(transform.position, transform.position - anchor.position, 0.1f, groundLayer);
-        Debug.DrawLine(transform.position,  anchor.position, Color.blue);
+        //fall down
+        if (duck.position.y <= -radius)
+        {
+            rb.velocity = Vector3.zero;
+        }else
+        {
+            rb.velocity -= transform.up * gravity;
+        }
+        
+        
         if (Input.GetKey(keyLeft)) {
-            anchor.eulerAngles = new Vector3(
-                anchor.eulerAngles.x,
-                anchor.eulerAngles.y,
-                anchor.eulerAngles.z + horizontalSpeed
-            );
+            transform.Rotate(Vector3.forward,horizontalSpeed);
         }
         if (Input.GetKey(keyRight)) {
-            anchor.eulerAngles = new Vector3(
-                anchor.eulerAngles.x,
-                anchor.eulerAngles.y,
-                anchor.eulerAngles.z - horizontalSpeed
-            );
+            transform.Rotate(Vector3.forward,-horizontalSpeed);
+
         }
-        if (Input.GetKeyDown(keyUp) && _isGrounded) {
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        if (Input.GetKeyDown(keyUp) && duck.position.y <= -radius)
+        {
+            rb.velocity = transform.up * jumpForce;
         }
         if (Input.GetKey(keyDuck)) {
-            duckModel.transform.localScale = new Vector3(
-                duckModel.transform.localScale.x, 
-                duckModel.transform.localScale.y, 
-                0.04f
-            );
+           
         } else {
-            duckModel.transform.localScale = new Vector3(
-                duckModel.transform.localScale.x, 
-                duckModel.transform.localScale.y, 
-                0.1f
-            );
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Rigidbody rb1 = GetComponent<Rigidbody>(); // Rigidbody des aktuellen Spielers
-            Rigidbody rb2 = collision.gameObject.GetComponent<Rigidbody>(); // Rigidbody des anderen Spielers
-            
-            if (rb1 != null && rb2 != null)
-            {
-                // Richtung vom aktuellen Spieler zum anderen Spieler
-                Vector3 direction = (collision.transform.position - transform.position).normalized;
-
-                // Kraft auf den aktuellen Spieler anwenden, um abzuprallen
-                rb1.AddForce(-direction * bounceForce, ForceMode.Impulse);
-
-                // Kraft auf den anderen Spieler anwenden, um ebenfalls abzuprallen
-                rb2.AddForce(direction * bounceForce, ForceMode.Impulse);
-            }
+         
         }
     }
 }
