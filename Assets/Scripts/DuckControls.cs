@@ -11,7 +11,7 @@ public class DuckControls : MonoBehaviour
     [SerializeField] public KeyCode keyDuck;
     [SerializeField] public KeyCode keyRight;
 
-    [SerializeField] private float horizontalSpeed = 0.4f;
+    [SerializeField] public float horizontalSpeed = 0.4f;
     [SerializeField] private float jumpForce = 2f;
     [SerializeField] private LayerMask groundLayer;
     public bool _isGrounded;

@@ -6,6 +6,7 @@ public class GameInitializer : MonoBehaviour
 {
     public static GameInitializer Instance { get; private set; }
     [SerializeField] private Transform playerPrefab;
+    [SerializeField] private Transform powerUpPrefab;
     
     private void Awake() {
         if (Instance != null && Instance != this) { 
@@ -27,5 +28,6 @@ public class GameInitializer : MonoBehaviour
             playerScript.keyDuck = uiControl.players[i].playerDuck;
             playerScript.keyRight = uiControl.players[i].playerRight;
         }
+        Instantiate(powerUpPrefab, new Vector3(0, -0.4f, 0), Quaternion.identity);
     }
 }
