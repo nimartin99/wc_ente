@@ -29,16 +29,20 @@ public class DuckControls : MonoBehaviour
         rb = duck.GetComponent<Rigidbody>();
     }
 
-    void Update() {
+    void Update()
+    {
         //fall down
-        if (duck.position.y <= -radius)
+        if (duck.localPosition.y <= -radius && rb.velocity.y < 0)
         {
-            rb.velocity = Vector3.zero;
-        }else
+            //rb.velocity = Vector3.zero;
+            //duck.localPosition = -transform.up * radius;
+        }else if(duck.localPosition.y > -radius)
         {
-            rb.velocity -= transform.up * gravity;
+            //rb.velocity -= transform.up * gravity;
         }
-        
+        Debug.DrawRay(duck.position, transform.up*100);
+        Debug.DrawRay(duck.position, rb.velocity*100,Color.green);
+
         
         if (Input.GetKey(keyLeft)) {
             transform.Rotate(Vector3.forward,horizontalSpeed);
@@ -47,9 +51,10 @@ public class DuckControls : MonoBehaviour
             transform.Rotate(Vector3.forward,-horizontalSpeed);
 
         }
-        if (Input.GetKeyDown(keyUp) && duck.position.y <= -radius)
+        if (Input.GetKeyDown(keyUp) && duck.localPosition.y <= -radius)
         {
-            rb.velocity = transform.up * jumpForce;
+            rb.velocity = duck.TransformDirection(Vector3.up * jumpForce);
+            Debug.Log(duck.TransformDirection(Vector3.up * jumpForce));
         }
         if (Input.GetKey(keyDuck)) {
            
