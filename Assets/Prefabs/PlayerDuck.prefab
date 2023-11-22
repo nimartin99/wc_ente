@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2277169495892258976}
   - component: {fileID: 6143332980481907647}
   - component: {fileID: 5244675290476919722}
+  - component: {fileID: 3462143766686243390}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -156,6 +157,18 @@ MonoBehaviour:
   _isGrounded: 0
   anchor: {fileID: 7981358162294918825}
   bounceForce: 0.65
+--- !u!114 &3462143766686243390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5219072569351555039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80d6aa2ac98c7945bca0a0b8fd7ef5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &778276806666487144
 PrefabInstance:
   m_ObjectHideFlags: 0
