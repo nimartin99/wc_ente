@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7981358162294918825}
+  - component: {fileID: 3828551188734303342}
   m_Layer: 0
   m_Name: PlayerDuck
   m_TagString: Untagged
@@ -32,6 +33,35 @@ Transform:
   - {fileID: 7804327790556587104}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3828551188734303342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471989762367902616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93f71942b60a3dd43bd4d285d970da2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duckModel: {fileID: 778276806666621188}
+  keyUp: 0
+  keyLeft: 0
+  keyDuck: 0
+  keyRight: 0
+  horizontalSpeed: 0.4
+  jumpForce: 4
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _isGrounded: 0
+  radius: 0.44
+  duck: {fileID: 5219072569351555039}
+  anchor: {fileID: 7981358162294918825}
+  bounceForce: 0.65
+  gravityFactor: 0.07
+  dragFactor: 0.01
 --- !u!1 &5219072569351555039
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,8 +73,6 @@ GameObject:
   - component: {fileID: 7804327790556587104}
   - component: {fileID: 7271116528993080072}
   - component: {fileID: 2277169495892258976}
-  - component: {fileID: 6143332980481907647}
-  - component: {fileID: 5244675290476919722}
   - component: {fileID: 3462143766686243390}
   m_Layer: 0
   m_Name: Player
@@ -94,7 +122,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &2277169495892258976
 CapsuleCollider:
@@ -111,7 +139,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -119,44 +147,6 @@ CapsuleCollider:
   m_Height: 0.13697428
   m_Direction: 1
   m_Center: {x: 0.00036173314, y: 0.06730059, z: 0}
---- !u!114 &6143332980481907647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5219072569351555039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 079eaced2ed24cc48a0076ffde86079c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attractor: {fileID: 0}
---- !u!114 &5244675290476919722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5219072569351555039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93f71942b60a3dd43bd4d285d970da2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duckModel: {fileID: 778276806666621188}
-  keyUp: 0
-  keyLeft: 0
-  keyDuck: 0
-  keyRight: 0
-  horizontalSpeed: 0.4
-  jumpForce: 1.55
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _isGrounded: 0
-  anchor: {fileID: 7981358162294918825}
-  bounceForce: 0.65
 --- !u!114 &3462143766686243390
 MonoBehaviour:
   m_ObjectHideFlags: 0

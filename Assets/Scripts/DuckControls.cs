@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DuckControls : MonoBehaviour
@@ -15,12 +16,26 @@ public class DuckControls : MonoBehaviour
     [SerializeField] private float jumpForce = 2f;
     [SerializeField] private LayerMask groundLayer;
     public bool _isGrounded;
+    //the radius of the pipe for grounding
+    public float radius = .45f;
+    //the duck-child
+    public GameObject duck;
     
     [SerializeField] private Transform anchor;
     private float _initialZPos;
     private Rigidbody rb;
     [SerializeField] private float bounceForce = 10.0f; // Die Kraft, mit der die Spieler abprallen.
 
+    //relative zMovement of duck
+    private float yMovement;
+    //gravity of duck (jump)
+    public float gravityFactor = 0.1f;
+    
+    //drag towards bottom of pipe
+    public float dragFactor = .1f;
+    //the angle in the bottom in which the duck is stable
+    private float drag_tolerance = .01f;
+    private float zRotation;
     private void Start() {
         _initialZPos = transform.position.z;
         rb = GetComponent<Rigidbody>();
@@ -28,7 +43,8 @@ public class DuckControls : MonoBehaviour
 
     void Update() {
         transform.position = new Vector3(transform.position.x, transform.position.y, _initialZPos);
-        _isGrounded = Physics.Raycast(transform.position, transform.position - anchor.position, 0.1f, groundLayer);
+        //_isGrounded = Physics.Raycast(transform.position, transform.position - anchor.position, 0.1f, groundLayer);
+        _isGrounded = (duck.transform.localPosition.y <= -radius) && yMovement <= 0;
         Debug.DrawLine(transform.position,  anchor.position, Color.blue);
         if (Input.GetKey(keyLeft)) {
             anchor.eulerAngles = new Vector3(
@@ -45,7 +61,9 @@ public class DuckControls : MonoBehaviour
             );
         }
         if (Input.GetKeyDown(keyUp) && _isGrounded) {
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            //duck.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            yMovement = jumpForce;
+            _isGrounded = false;
         }
         if (Input.GetKey(keyDuck)) {
             duckModel.transform.localScale = new Vector3(
@@ -60,6 +78,36 @@ public class DuckControls : MonoBehaviour
                 0.1f
             );
         }
+
+        duck.transform.localPosition += Vector3.up * (Time.deltaTime * yMovement);
+
+        if (!_isGrounded)
+        {
+            //reduce zMovement by gravity
+            yMovement -= gravityFactor;
+        }else
+        {
+            yMovement = 0;
+            duck.transform.localPosition = Vector3.down * radius;
+        }
+    //add drag if rotation not zero
+    float norm_rotation = transform.rotation.z % (2*MathF.PI);
+    Debug.Log(norm_rotation);
+    if (norm_rotation > drag_tolerance && norm_rotation <= Mathf.PI)
+    {
+        //right side of pipe
+        zRotation += dragFactor;
+    }else if (norm_rotation < (2*MathF.PI) - drag_tolerance && norm_rotation > Mathf.PI)
+    {
+        //left side of pipe
+        zRotation -= dragFactor;
+    }
+    else
+    {
+        zRotation = zRotation / 2;
+    }
+    transform.Rotate(Vector3.forward, zRotation);
+    
     }
 
     private void OnCollisionEnter(Collision collision)
