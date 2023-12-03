@@ -8,7 +8,6 @@ public class PipeScript : MonoBehaviour {
     [SerializeField] private float gravity;
     
     private void Awake() {
-        // Singleton pattern
         if (Instance != null && Instance != this) { 
             Destroy(this); 
         } 
@@ -17,19 +16,13 @@ public class PipeScript : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Attract the duck towards the pipe
-    /// </summary>
-    /// <param name="attractTransform"></param>
     public void Attract(Transform attractTransform) {
         Vector3 gravityDown = (transform.position - attractTransform.position).normalized;
         gravityDown.z = 0;
         attractTransform.GetComponent<Rigidbody>().AddForce(gravityDown * gravity);
 
         Vector3 localUp = attractTransform.up;
-        // Get the correct rotation
         Quaternion targetRotation = Quaternion.FromToRotation(localUp, gravityDown) * attractTransform.rotation;
-        // Interpolate the rotation
         attractTransform.rotation = Quaternion.Slerp(attractTransform.rotation, targetRotation, 100f * Time.deltaTime);
     }
 }
