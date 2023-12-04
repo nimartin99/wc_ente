@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
+    public static ObstacleSpawner Instance { get; private set; }
+
+    // boolean that indicates if obstacles are spawned or not
+    public bool spawnObstacles;
     // average delay in seconds from the spawn of one Obstacle to the next
     public float spawnDelayAvg = 10;
     // percentage of variance in Spawn delay. e.g. if the average delay is set to 1 and the variance to 0.2, the delay will be between 0.8 and 1.2
@@ -16,9 +20,14 @@ public class ObstacleSpawner : MonoBehaviour
     // the chosen spawn delay for the current obstacle
     private float spawnDelay = 0;
     
-    // Start is called before the first frame update
-    void Start()
-    {
+    private void Awake() {
+        // Singleton pattern
+        if (Instance != null && Instance != this) { 
+            Destroy(this); 
+        } 
+        else {
+            Instance = this; 
+        }
     }
 
     // Update is called once per frame
@@ -26,7 +35,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         // check for time since last spawn
         float deltaTime = Time.time - lastSpawn;
-        if(deltaTime<spawnDelay) return;
+        if(!spawnObstacles || deltaTime<spawnDelay) return;
         
         // generate random index to choose which obstacle to spawn
         int spawnIndex = Random.Range(0, obstaclePrefabs.Length);
