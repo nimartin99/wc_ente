@@ -16,6 +16,8 @@ public class DuckControls : MonoBehaviour
     [SerializeField] private float jumpForce = 2f;
     [SerializeField] private LayerMask groundLayer;
     public bool _isGrounded;
+
+   
     //the radius of the pipe for grounding
     public float radius = .45f;
     //the duck-child
@@ -34,8 +36,9 @@ public class DuckControls : MonoBehaviour
     //drag towards bottom of pipe
     public float dragFactor = .1f;
     //the angle in the bottom in which the duck is stable
-    private float drag_tolerance = .01f;
+    public float drag_tolerance = 5;
     private float zRotation;
+    public float maxRotationSpeed = 1;
     private void Start() {
         _initialZPos = transform.position.z;
         rb = GetComponent<Rigidbody>();
@@ -46,19 +49,13 @@ public class DuckControls : MonoBehaviour
         //_isGrounded = Physics.Raycast(transform.position, transform.position - anchor.position, 0.1f, groundLayer);
         _isGrounded = (duck.transform.localPosition.y <= -radius) && yMovement <= 0;
         Debug.DrawLine(transform.position,  anchor.position, Color.blue);
-        if (Input.GetKey(keyLeft)) {
-            anchor.eulerAngles = new Vector3(
-                anchor.eulerAngles.x,
-                anchor.eulerAngles.y,
-                anchor.eulerAngles.z + horizontalSpeed
-            );
+        if (Input.GetKey(keyLeft))
+        {
+            zRotation += horizontalSpeed;
         }
-        if (Input.GetKey(keyRight)) {
-            anchor.eulerAngles = new Vector3(
-                anchor.eulerAngles.x,
-                anchor.eulerAngles.y,
-                anchor.eulerAngles.z - horizontalSpeed
-            );
+        if (Input.GetKey(keyRight))
+        {
+            zRotation -= horizontalSpeed;
         }
         if (Input.GetKeyDown(keyUp) && _isGrounded) {
             //duck.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -91,23 +88,33 @@ public class DuckControls : MonoBehaviour
             duck.transform.localPosition = Vector3.down * radius;
         }
     //add drag if rotation not zero
-    float norm_rotation = transform.rotation.z % (2*MathF.PI);
-    Debug.Log(norm_rotation);
-    if (norm_rotation > drag_tolerance && norm_rotation <= Mathf.PI)
+    float norm_rotation = transform.rotation.eulerAngles.z % 360;
+    if (norm_rotation > drag_tolerance && norm_rotation <= 180)
     {
         //right side of pipe
-        zRotation += dragFactor;
-    }else if (norm_rotation < (2*MathF.PI) - drag_tolerance && norm_rotation > Mathf.PI)
+        zRotation -= dragFactor;
+    }else if (norm_rotation < 360 - drag_tolerance && norm_rotation > 180)
     {
         //left side of pipe
-        zRotation -= dragFactor;
+        zRotation += dragFactor;
     }
     else
     {
         zRotation = zRotation / 2;
     }
-    transform.Rotate(Vector3.forward, zRotation);
-    
+    Debug.Log(zRotation);
+    if (zRotation > maxRotationSpeed)
+    {
+        zRotation = maxRotationSpeed;
+    }
+
+    if (zRotation < -maxRotationSpeed)
+    {
+        zRotation = -maxRotationSpeed;
+    }
+    transform.Rotate(Vector3.forward, zRotation*Time.deltaTime);
+    //some friction
+    zRotation *= 0.999f;
     }
 
     private void OnCollisionEnter(Collision collision)
