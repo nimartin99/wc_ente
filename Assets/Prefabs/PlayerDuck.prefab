@@ -50,8 +50,8 @@ MonoBehaviour:
   keyLeft: 0
   keyDuck: 0
   keyRight: 0
-  horizontalSpeed: 0.9
-  jumpForce: 4
+  horizontalSpeed: 10
+  jumpForce: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -59,11 +59,16 @@ MonoBehaviour:
   radius: 0.44
   duck: {fileID: 5219072569351555039}
   anchor: {fileID: 7981358162294918825}
-  bounceForce: 0.65
+  bounceForce: 10
   gravityFactor: 0.07
-  dragFactor: 1
+  useDrag: 0
+  dragFactor: 0
   drag_tolerance: 0
+  zRotation: 0
   maxRotationSpeed: 150
+  pushMovement: 0
+  totalMovement: 0
+  friction: 0.5
 --- !u!1 &5219072569351555039
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80d6aa2ac98c7945bca0a0b8fd7ef5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myDuck: {fileID: 3828551188734303342}
 --- !u!1001 &778276806666487144
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -26,19 +26,27 @@ public class DuckControls : MonoBehaviour
     [SerializeField] private Transform anchor;
     private float _initialZPos;
     private Rigidbody rb;
-    [SerializeField] private float bounceForce = 10.0f; // Die Kraft, mit der die Spieler abprallen.
+    [SerializeField] public float bounceForce = 10.0f; // Die Kraft, mit der die Spieler abprallen.
 
     //relative zMovement of duck
     private float yMovement;
     //gravity of duck (jump)
     public float gravityFactor = 0.1f;
-    
+
+    public bool useDrag = false;
     //drag towards bottom of pipe
     public float dragFactor = .1f;
     //the angle in the bottom in which the duck is stable
     public float drag_tolerance = 5;
-    private float zRotation;
+    public float zRotation;
     public float maxRotationSpeed = 1;
+
+    //the movement resulting from being pushed by other players
+    public float pushMovement = 0;
+    //the total movement of the player, push movement and normal movement added up
+    public float totalMovement = 0;
+    //the friction the duck slows down with after being pushed
+    public float friction = 1;
     private void Start() {
         _initialZPos = transform.position.z;
         rb = GetComponent<Rigidbody>();
@@ -48,14 +56,17 @@ public class DuckControls : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, _initialZPos);
         //_isGrounded = Physics.Raycast(transform.position, transform.position - anchor.position, 0.1f, groundLayer);
         _isGrounded = (duck.transform.localPosition.y <= -radius) && yMovement <= 0;
-        Debug.DrawLine(transform.position,  anchor.position, Color.blue);
+        //Debug.DrawLine(transform.position,  anchor.position, Color.blue);
         if (Input.GetKey(keyLeft))
         {
             zRotation += horizontalSpeed;
         }
-        if (Input.GetKey(keyRight))
+        else if (Input.GetKey(keyRight))
         {
             zRotation -= horizontalSpeed;
+        }else if (!useDrag)
+        {
+            zRotation = 0;
         }
         if (Input.GetKeyDown(keyUp) && _isGrounded) {
             //duck.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -102,7 +113,6 @@ public class DuckControls : MonoBehaviour
     {
         zRotation = zRotation / 2;
     }
-    Debug.Log(zRotation);
     if (zRotation > maxRotationSpeed)
     {
         zRotation = maxRotationSpeed;
@@ -112,9 +122,15 @@ public class DuckControls : MonoBehaviour
     {
         zRotation = -maxRotationSpeed;
     }
-    transform.Rotate(Vector3.forward, zRotation*Time.deltaTime);
+
+    totalMovement = zRotation + pushMovement;
+    transform.Rotate(Vector3.forward, totalMovement*Time.deltaTime);
     //some friction
     zRotation *= 0.999f;
+    if (pushMovement != 0)
+    {
+        pushMovement *= friction;
+    }
     }
 
     private void OnCollisionEnter(Collision collision)
