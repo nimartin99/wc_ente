@@ -59,7 +59,7 @@ MonoBehaviour:
   radius: 0.44
   duck: {fileID: 5219072569351555039}
   anchor: {fileID: 7981358162294918825}
-  bounceForce: 10
+  bounceForce: 7
   gravityFactor: 0.07
   useDrag: 0
   dragFactor: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
   maxRotationSpeed: 150
   pushMovement: 0
   totalMovement: 0
-  friction: 0.5
+  friction: 0.9
 --- !u!1 &5219072569351555039
 GameObject:
   m_ObjectHideFlags: 0
