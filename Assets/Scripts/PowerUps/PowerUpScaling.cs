@@ -1,35 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PowerUpScaling : PowerUp {
-    // The factor by which the player duck gets scaled when collected
-    public float scalingFactor = 2;
-    
-    /// <summary>
-    /// Scales the player that picked it up by the given scalingFactor
-    /// </summary>
-    /// <param name="hit">The player gameobject that was hit</param>
-    protected override void PowerUpCollected(GameObject hit) {
+public class PowerUpScaling : PowerUp
+{
+    public Sprite ScaleUp;
+    public Image PowerUpTarget;
+
+    private float scalingFactor; // Variable to store the randomly chosen scaling factor
+
+    private void OnEnable()
+    {
+        PowerUpTarget = GameObject.Find("PowerPikcup").GetComponent<Image>();
+    }
+
+    protected override void PowerUpCollected(GameObject hit)
+    {
+        PowerUpTarget.enabled = true;
+        PowerUpTarget.sprite = ScaleUp;
+
+        // Randomly choose between 2x and 0.5x scaling
+        scalingFactor = Random.Range(0, 2) > 0 ? 2f : 0.5f;
+
         Vector3 scale = hit.gameObject.transform.localScale;
         hit.gameObject.transform.localScale = new Vector3(scale.x * scalingFactor, scale.y * scalingFactor, scale.z * scalingFactor);
-        
-        // Call the parent PowerUpCollected method
+
         base.PowerUpCollected(hit);
     }
-    
-    /// <summary>
-    /// Waits for the given duration and then scales the player duck back
-    /// </summary>
-    /// <param name="hit">The player gameobject that was hit</param>
-    /// <param name="duration">The duration after which the player duck gets scaled back</param>
-    /// <returns></returns>
-    protected override IEnumerator PowerUpElapsed(GameObject hit, int duration) {
+
+    protected override IEnumerator PowerUpElapsed(GameObject hit, int duration)
+    {
         yield return new WaitForSeconds(duration);
+
+        PowerUpTarget.enabled = false;
         Vector3 scale = hit.gameObject.transform.localScale;
         hit.gameObject.transform.localScale = new Vector3(scale.x / scalingFactor, scale.y / scalingFactor, scale.z / scalingFactor);
-        
-        // Call the parent PowerUpElapsed method
+
         base.PowerUpElapsed(hit, duration);
-    } 
+    }
 }

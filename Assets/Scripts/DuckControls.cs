@@ -7,23 +7,14 @@ using UnityEngine;
 public class DuckControls : MonoBehaviour
 {
     [SerializeField] private GameObject duckModel;
-    
-    // Keycodes of this player
     [SerializeField] public KeyCode keyUp;
     [SerializeField] public KeyCode keyLeft;
     [SerializeField] public KeyCode keyDuck;
     [SerializeField] public KeyCode keyRight;
 
-    // The left and right (horizontal) speed with which the duck can move in the pipe
     [SerializeField] public float horizontalSpeed = 0.4f;
-    
-    // The force with which the duck can jump
     [SerializeField] private float jumpForce = 2f;
-    
-    // Ground layer mask
     [SerializeField] private LayerMask groundLayer;
-    
-    // The check if the duck is on the ground or not
     public bool _isGrounded;
 
    
@@ -32,17 +23,13 @@ public class DuckControls : MonoBehaviour
     //the duck-child
     public GameObject duck;
     
-    // The anchor that holds the duck in the middle
     [SerializeField] private Transform anchor;
-    
-    // The initial z position of the duck so its always on the same z coordinate
     private float _initialZPos;
-    
-    // Rigidbody of the duck
     private Rigidbody rb;
     
     // The power with which you push away yourself and enemies when touched
     [SerializeField] public float bounceForce = 10.0f; // Die Kraft, mit der die Spieler abprallen.
+
 
 
     //relative zMovement of duck
@@ -65,14 +52,13 @@ public class DuckControls : MonoBehaviour
     //the friction the duck slows down with after being pushed
     public float friction = 1;
     private void Start() {
-        // Set the initial z position
         _initialZPos = transform.position.z;
         rb = GetComponent<Rigidbody>();
     }
 
     void Update() {
-        // Reset the z position
         transform.position = new Vector3(transform.position.x, transform.position.y, _initialZPos);
+
 
         //_isGrounded = Physics.Raycast(transform.position, transform.position - anchor.position, 0.1f, groundLayer);
         _isGrounded = (duck.transform.localPosition.y <= -radius) && yMovement <= 0;
@@ -80,6 +66,7 @@ public class DuckControls : MonoBehaviour
         if (Input.GetKey(keyLeft))
         {
             zRotation += horizontalSpeed;
+
         }
         else if (Input.GetKey(keyRight))
         {
@@ -88,14 +75,11 @@ public class DuckControls : MonoBehaviour
         {
             zRotation = 0;
         }
-        // Let the player jump when the key is pressed and the player is on the floor
         if (Input.GetKeyDown(keyUp) && _isGrounded) {
             //duck.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * jumpForce, ForceMode.Impulse);
             yMovement = jumpForce;
             _isGrounded = false;
         }
-        
-        // Scale the duck down while the duck key is pressed (GetKey instead of GetKeyDown) otherwise reset the scale
         if (Input.GetKey(keyDuck)) {
             duckModel.transform.localScale = new Vector3(
                 duckModel.transform.localScale.x, 
@@ -158,18 +142,20 @@ public class DuckControls : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the collided object is a player
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Rigidbody of the other player
-            Rigidbody rb2 = collision.gameObject.GetComponent<Rigidbody>();
-            if (rb2 != null)
+            Rigidbody rb1 = GetComponent<Rigidbody>(); // Rigidbody des aktuellen Spielers
+            Rigidbody rb2 = collision.gameObject.GetComponent<Rigidbody>(); // Rigidbody des anderen Spielers
+            
+            if (rb1 != null && rb2 != null)
             {
-                // Direction of the current player to the other player
+                // Richtung vom aktuellen Spieler zum anderen Spieler
                 Vector3 direction = (collision.transform.position - transform.position).normalized;
-                // Add the power to the current player
-                rb.AddForce(-direction * bounceForce, ForceMode.Impulse);
-                // Add the power to the other player
+
+                // Kraft auf den aktuellen Spieler anwenden, um abzuprallen
+                rb1.AddForce(-direction * bounceForce, ForceMode.Impulse);
+
+                // Kraft auf den anderen Spieler anwenden, um ebenfalls abzuprallen
                 rb2.AddForce(direction * bounceForce, ForceMode.Impulse);
             }
         }
