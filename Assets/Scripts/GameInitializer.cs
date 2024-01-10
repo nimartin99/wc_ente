@@ -49,9 +49,10 @@ public class GameInitializer : MonoBehaviour
             Transform playerAnchor = Instantiate(playerPrefab);
             playerAnchor.position = new Vector3(0, 0, 4f);
             playerAnchor.eulerAngles = new Vector3(0, 0, 90 * i);
-            DuckControls playerScript = playerAnchor.GetChild(0).GetComponent<DuckControls>();
-            
-            // Set keycodes for players
+
+            DuckControls playerScript = playerAnchor.GetComponent<DuckControls>();
+            Debug.Log(uiControl.players[i].playerUp);
+
             playerScript.keyUp = uiControl.players[i].playerUp != KeyCode.None ? uiControl.players[i].playerUp: standardCodes[i,0];
             playerScript.keyLeft = uiControl.players[i].playerLeft != KeyCode.None ? uiControl.players[i].playerLeft: standardCodes[i,1];
             playerScript.keyDuck = uiControl.players[i].playerDuck != KeyCode.None ? uiControl.players[i].playerDuck: standardCodes[i,2];
