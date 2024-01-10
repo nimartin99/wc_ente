@@ -42,7 +42,7 @@ public class DuckControls : MonoBehaviour
     private Rigidbody rb;
     
     // The power with which you push away yourself and enemies when touched
-    [SerializeField] private float bounceForce = 10.0f; // Die Kraft, mit der die Spieler abprallen.
+    [SerializeField] public float bounceForce = 10.0f; // Die Kraft, mit der die Spieler abprallen.
 
 
     //relative zMovement of duck

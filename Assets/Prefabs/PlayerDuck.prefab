@@ -51,7 +51,7 @@ MonoBehaviour:
   keyDuck: 0
   keyRight: 0
   horizontalSpeed: 10
-  jumpForce: 2
+  jumpForce: 3
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
