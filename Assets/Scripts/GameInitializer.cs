@@ -35,7 +35,7 @@ public class GameInitializer : MonoBehaviour
     }
 
     private void SpawnLevelPrefabs() {
-        Instantiate(pipePrefab, new Vector3(0, 0, 0), Quaternion.Euler(90, 0, 0));
+        //Instantiate(pipePrefab, new Vector3(0, 0, 0), Quaternion.Euler(90, 0, 0));
     }
 
     private void SpawnPlayers(UIControl uiControl) {
