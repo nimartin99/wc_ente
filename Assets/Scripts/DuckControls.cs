@@ -28,9 +28,6 @@ public class DuckControls : MonoBehaviour
     // The anchor that holds the duck in the middle
     [SerializeField] private Transform anchor;
     
-    // The initial z position of the duck so its always on the same z coordinate
-    private float _initialZPos;
-    
     // Rigidbody of the duck
     private Rigidbody rb;
     
@@ -39,13 +36,10 @@ public class DuckControls : MonoBehaviour
 
     private void Start() {
         // Set the initial z position
-        _initialZPos = transform.position.z;
         rb = GetComponent<Rigidbody>();
     }
 
     void Update() {
-        // Reset the z position
-        transform.position = new Vector3(transform.position.x, transform.position.y, _initialZPos);
         // Check if the player is grounded by casting a ray to the groundlayer
         _isGrounded = Physics.Raycast(transform.position, transform.position - anchor.position, 0.1f, groundLayer);
         // Debug.DrawLine(transform.position,  anchor.position, Color.blue);

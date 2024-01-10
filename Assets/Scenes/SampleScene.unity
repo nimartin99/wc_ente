@@ -341,7 +341,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7981358162294918825, guid: 967d7c4f23e704c4499f0de62d9ebbfa, type: 3}
   powerUpPrefab: {fileID: 169651498870941878, guid: 96fbb55a82bb51e4cade52f43e2fc815, type: 3}
-  pipePrefab: {fileID: 5355096635068432621, guid: d66aa2bafa5c56d4796ae79ddfd17e4e, type: 3}
+  pipePrefab: {fileID: 675532662144954221, guid: 9a90352b65b85b843ab51ae748690296, type: 3}
+  playerAnchorPrefab: {fileID: 2770490593747773115, guid: cf77520e799f0774b8c061ed6d089541, type: 3}
 --- !u!4 &750440852
 Transform:
   m_ObjectHideFlags: 0
@@ -444,7 +445,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 5.172}
+  m_LocalPosition: {x: 0, y: 0, z: 0.29}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []

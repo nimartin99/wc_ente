@@ -8,6 +8,8 @@ public class GameInitializer : MonoBehaviour
     [SerializeField] private Transform playerPrefab;
     [SerializeField] private Transform powerUpPrefab;
     [SerializeField] private Transform pipePrefab;
+    [SerializeField] private Transform playerAnchorPrefab;
+    private Transform pipeSpawner;
     
     // Standard keycodes for first two players
     private KeyCode[,] standardCodes =
@@ -40,14 +42,16 @@ public class GameInitializer : MonoBehaviour
     }
 
     private void SpawnLevelPrefabs() {
-        Instantiate(pipePrefab, new Vector3(0, 0, 0), Quaternion.Euler(90, 0, 0));
+        pipeSpawner = Instantiate(pipePrefab, new Vector3(0, 0, 0), Quaternion.Euler(90, 0, 0));
     }
 
     private void SpawnPlayers(UIControl uiControl) {
+        Transform playerAnchorParent = Instantiate(playerAnchorPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 180, 0));
+        
         for (int i = 0; i < uiControl.players.Count; i++) {
             // Spawn a player prefab
-            Transform playerAnchor = Instantiate(playerPrefab);
-            playerAnchor.position = new Vector3(0, 0, 4f);
+            Transform playerAnchor = Instantiate(playerPrefab, playerAnchorParent);
+            playerAnchor.position = new Vector3(0, 0, 0);
             playerAnchor.eulerAngles = new Vector3(0, 0, 90 * i);
             DuckControls playerScript = playerAnchor.GetChild(0).GetComponent<DuckControls>();
             
@@ -57,5 +61,12 @@ public class GameInitializer : MonoBehaviour
             playerScript.keyDuck = uiControl.players[i].playerDuck != KeyCode.None ? uiControl.players[i].playerDuck: standardCodes[i,2];
             playerScript.keyRight = uiControl.players[i].playerRight != KeyCode.None ? uiControl.players[i].playerRight: standardCodes[i,3];
         }
+        
+        // Set the Camera as child of the playerAnchorParent
+        Camera.main.transform.SetParent(playerAnchorParent);
+        Camera.main.transform.position = new Vector3(playerAnchorParent.position.x, playerAnchorParent.position.y,
+            playerAnchorParent.position.z + 0.5f);
+        PipeGenerator pipeGenerator = pipeSpawner.GetComponent<PipeGenerator>();
+        pipeGenerator.objectToMove = playerAnchorParent.gameObject;
     }
 }
