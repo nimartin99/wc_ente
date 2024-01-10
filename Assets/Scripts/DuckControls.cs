@@ -24,7 +24,6 @@ public class DuckControls : MonoBehaviour
     public GameObject duck;
     
     [SerializeField] private Transform anchor;
-    private float _initialZPos;
     private Rigidbody rb;
     
     // The power with which you push away yourself and enemies when touched
@@ -52,14 +51,10 @@ public class DuckControls : MonoBehaviour
     //the friction the duck slows down with after being pushed
     public float friction = 1;
     private void Start() {
-        _initialZPos = transform.position.z;
         rb = GetComponent<Rigidbody>();
     }
 
     void Update() {
-        transform.position = new Vector3(transform.position.x, transform.position.y, _initialZPos);
-
-
         //_isGrounded = Physics.Raycast(transform.position, transform.position - anchor.position, 0.1f, groundLayer);
         _isGrounded = (duck.transform.localPosition.y <= -radius) && yMovement <= 0;
         //Debug.DrawLine(transform.position,  anchor.position, Color.blue);

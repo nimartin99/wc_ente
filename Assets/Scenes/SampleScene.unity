@@ -263,7 +263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &355075956
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8329,6 +8329,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7981358162294918825, guid: 967d7c4f23e704c4499f0de62d9ebbfa, type: 3}
   powerUpPrefab: {fileID: 169651498870941878, guid: 96fbb55a82bb51e4cade52f43e2fc815, type: 3}
+  pipePrefab: {fileID: 675532662144954221, guid: 9a90352b65b85b843ab51ae748690296, type: 3}
+  playerAnchorPrefab: {fileID: 2770490593747773115, guid: cfbe16e204a850948a5362ea30df9133, type: 3}
 --- !u!4 &750440852
 Transform:
   m_ObjectHideFlags: 0
