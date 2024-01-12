@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour {
     [SerializeField] private float powerUpFloatSpeed;
+    [SerializeField] private float powerUpRotationSpeed;
     [SerializeField] public int duration;
     
     private void Update() {
-        Vector3 pos = transform.position;
-        transform.position = new Vector3(pos.x, pos.y, pos.z + powerUpFloatSpeed * Time.deltaTime);
+        MovePowerup();
+        transform.Rotate(Vector3.up * (powerUpRotationSpeed * Time.deltaTime));
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -30,6 +31,16 @@ public class PowerUp : MonoBehaviour {
 
     private void HidePowerUp() {
         gameObject.GetComponent<SphereCollider>().enabled = false;
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        for (int i = 0; i < gameObject.transform.childCount; i++) {
+            MeshRenderer meshRenderer = gameObject.transform.GetChild(i).GetComponent<MeshRenderer>();
+            if (meshRenderer != null) {
+                gameObject.GetComponent<MeshRenderer>().enabled = false;
+            }
+        }
+        
+    }
+
+    private void MovePowerup() {
+        // We could add something here to move the powerup through the pipe by using the bezier curves
     }
 }

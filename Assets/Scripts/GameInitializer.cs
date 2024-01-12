@@ -67,7 +67,7 @@ public class GameInitializer : MonoBehaviour
         // Set the Camera as child of the playerAnchorParent
         Camera.main.transform.SetParent(playerAnchorParent);
         Camera.main.transform.position = new Vector3(playerAnchorParent.position.x, playerAnchorParent.position.y,
-            playerAnchorParent.position.z + 0.5f);
+            playerAnchorParent.position.z + 1f);
         PipeGenerator pipeGenerator = pipeSpawner.GetComponent<PipeGenerator>();
         pipeGenerator.objectToMove = playerAnchorParent.gameObject;
     }

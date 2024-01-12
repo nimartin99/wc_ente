@@ -8,12 +8,14 @@ using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class PipeGenerator : MonoBehaviour {
+    public static PipeGenerator Instance { get; private set; }
+    
     [SerializeField] private Transform straightPipe;
     [SerializeField] private Transform curveRightPipe;
     [SerializeField] private Transform curveLeftPipe;
 
     private float singlePipeProgress = 0;
-    private Vector3 currentEndPoint;
+    public Vector3 currentEndPoint;
     private float currentEndRotation;
     
     private PipeType[] debugPipe = new[] { PipeType.Straight, PipeType.CurveLeft, PipeType.CurveRight };
@@ -25,10 +27,18 @@ public class PipeGenerator : MonoBehaviour {
         CurveRight
     };
 
-    private Transform[] currentPipes = new Transform[5];
-    
-    
+    public Transform[] currentPipes = new Transform[5];
     public GameObject objectToMove;
+    
+    private void Awake() {
+        // Singleton pattern
+        if (Instance != null && Instance != this) { 
+            Destroy(this); 
+        } 
+        else { 
+            Instance = this; 
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -119,7 +129,7 @@ public class PipeGenerator : MonoBehaviour {
         return nextPipe;
     }
     
-    private Vector3 BezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3) {
+    public static Vector3 BezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3) {
         float u = 1 - t;
         float tt = t * t;
         float uu = u * u;
