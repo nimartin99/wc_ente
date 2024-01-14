@@ -1,0 +1,25 @@
+.button {
+    width: 170px;
+    height: 65px;
+    -unity-font-style: bold;
+    width: 30%; 
+    background-color: rgb(243, 255, 0);
+     -unity-font-style: bold;
+      font-size: 20%;
+     color: rgb(56, 56, 56);
+     -unity-background-image-tint-color: rgb(147, 14, 14);
+     -unity-text-outline-color: rgba(144, 82, 82, 0); 
+     border-top-width: 5px; 
+     border-right-width: 5px; 
+     border-bottom-width: 5px; 
+     border-left-width: 5px;
+      border-left-color: rgb(42, 42, 42); 
+      border-right-color: rgb(42, 42, 42);
+       border-top-color: rgb(42, 42, 42);
+        border-bottom-color: rgb(42, 42, 42); 
+        border-top-left-radius: 5px; 
+        border-top-right-radius: 5px; 
+        border-bottom-right-radius: 5px; 
+        border-bottom-left-radius: 5px;
+}
+  
