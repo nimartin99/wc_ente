@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameInitializer : MonoBehaviour
 {
+    public List<Transform> currentPlayers = new List<Transform>();
     public static GameInitializer Instance { get; private set; }
     [SerializeField] private Transform playerPrefab;
     [SerializeField] private Transform powerUpPrefab;
@@ -26,6 +28,11 @@ public class GameInitializer : MonoBehaviour
         }
     }
 
+    private void Update() {
+        if (currentPlayers.Count == 1) {
+            UIControl.Instance.EndGame();
+        }
+    }
     /// <summary>
     /// The Method that starts the game by initializing and spawning all the game objects in the scene
     /// </summary>
@@ -50,6 +57,7 @@ public class GameInitializer : MonoBehaviour
             playerAnchor.position = new Vector3(0, 0, 4f);
             playerAnchor.eulerAngles = new Vector3(0, 0, 90 * i);
             DuckControls playerScript = playerAnchor.GetChild(0).GetComponent<DuckControls>();
+            currentPlayers.Add(playerAnchor);
             
             // Set keycodes for players
             playerScript.keyUp = uiControl.players[i].playerUp != KeyCode.None ? uiControl.players[i].playerUp: standardCodes[i,0];
