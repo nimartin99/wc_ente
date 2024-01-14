@@ -34,7 +34,7 @@ public class PowerUp : MonoBehaviour {
         for (int i = 0; i < gameObject.transform.childCount; i++) {
             MeshRenderer meshRenderer = gameObject.transform.GetChild(i).GetComponent<MeshRenderer>();
             if (meshRenderer != null) {
-                gameObject.GetComponent<MeshRenderer>().enabled = false;
+                gameObject.transform.GetChild(i).GetComponent<MeshRenderer>().enabled = false;
             }
         }
         

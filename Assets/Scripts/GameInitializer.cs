@@ -37,8 +37,6 @@ public class GameInitializer : MonoBehaviour
         SpawnLevelPrefabs();
         SpawnPlayers(uiControl);
         ObstacleSpawner.Instance.spawnObstacles = true;
-        // Instantiate a test powerup
-        Instantiate(powerUpPrefab, new Vector3(0, -0.4f, 0), Quaternion.identity);
     }
     
     private void SpawnLevelPrefabs() {
