@@ -10,6 +10,8 @@ public class GameInitializer : MonoBehaviour
     [SerializeField] private Transform playerPrefab;
     [SerializeField] private Transform powerUpPrefab;
     [SerializeField] private Transform pipePrefab;
+    [SerializeField] private Transform playerAnchorPrefab;
+    private Transform pipeSpawner;
     
     // Standard keycodes for first two players
     private KeyCode[,] standardCodes =
@@ -42,28 +44,36 @@ public class GameInitializer : MonoBehaviour
         SpawnLevelPrefabs();
         SpawnPlayers(uiControl);
         ObstacleSpawner.Instance.spawnObstacles = true;
-        // Instantiate a test powerup
-        Instantiate(powerUpPrefab, new Vector3(0, -0.4f, 0), Quaternion.identity);
     }
-
+    
     private void SpawnLevelPrefabs() {
-        Instantiate(pipePrefab, new Vector3(0, 0, 0), Quaternion.Euler(90, 0, 0));
+        pipeSpawner = Instantiate(pipePrefab, new Vector3(0, 0, 0), Quaternion.Euler(90, 0, 0));
     }
 
     private void SpawnPlayers(UIControl uiControl) {
+        Transform playerAnchorParent = Instantiate(playerAnchorPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 180, 0));
+        
         for (int i = 0; i < uiControl.players.Count; i++) {
             // Spawn a player prefab
-            Transform playerAnchor = Instantiate(playerPrefab);
-            playerAnchor.position = new Vector3(0, 0, 4f);
-            playerAnchor.eulerAngles = new Vector3(0, 0, 90 * i);
-            DuckControls playerScript = playerAnchor.GetChild(0).GetComponent<DuckControls>();
+            Transform playerAnchor = Instantiate(playerPrefab, playerAnchorParent);
+            playerAnchor.position = new Vector3(0, 0, 0);
+            playerAnchor.eulerAngles = new Vector3(0, 0, 90 * i);            
+
+            DuckControls playerScript = playerAnchor.GetComponent<DuckControls>();
             currentPlayers.Add(playerAnchor);
             
-            // Set keycodes for players
+     // Set keycodes for players
             playerScript.keyUp = uiControl.players[i].playerUp != KeyCode.None ? uiControl.players[i].playerUp: standardCodes[i,0];
             playerScript.keyLeft = uiControl.players[i].playerLeft != KeyCode.None ? uiControl.players[i].playerLeft: standardCodes[i,1];
             playerScript.keyDuck = uiControl.players[i].playerDuck != KeyCode.None ? uiControl.players[i].playerDuck: standardCodes[i,2];
             playerScript.keyRight = uiControl.players[i].playerRight != KeyCode.None ? uiControl.players[i].playerRight: standardCodes[i,3];
         }
+        
+        // Set the Camera as child of the playerAnchorParent
+        Camera.main.transform.SetParent(playerAnchorParent);
+        Camera.main.transform.position = new Vector3(playerAnchorParent.position.x, playerAnchorParent.position.y,
+            playerAnchorParent.position.z + 1f);
+        PipeGenerator pipeGenerator = pipeSpawner.GetComponent<PipeGenerator>();
+        pipeGenerator.objectToMove = playerAnchorParent.gameObject;
     }
 }

@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PowerUpSpeed : PowerUp {
-    // The factor by which the player gets faster
     public float speedFactor = 2;
-    
-    /// <summary>
-    /// Speeds the player up by the given speedFactor
-    /// </summary>
-    /// <param name="hit">The player gameobject that was hit</param>
+    public Sprite SpeedUp;
+    public Image PowerUpTarget;
+    private void OnEnable()
+    {
+        PowerUpTarget = GameObject.Find("PowerPikcup").GetComponent<Image>();
+    }
     protected override void PowerUpCollected(GameObject hit) {
+        PowerUpTarget.GetComponent<Image>().enabled = true;
+        PowerUpTarget.sprite = SpeedUp;
         DuckControls duckControls = hit.GetComponent<DuckControls>();
         if (duckControls) {
             duckControls.horizontalSpeed *= speedFactor;
@@ -18,14 +20,9 @@ public class PowerUpSpeed : PowerUp {
         }
     }
     
-    /// <summary>
-    /// Waits for the given duration and then slows the player down again
-    /// </summary>
-    /// <param name="hit">The player gameobject that was hit</param>
-    /// <param name="duration">The duration after which the player gets slowed down</param>
-    /// <returns></returns>
     protected override IEnumerator PowerUpElapsed(GameObject hit, int duration) {
         yield return new WaitForSeconds(duration);
+        PowerUpTarget.GetComponent<Image>().enabled = false;
         DuckControls duckControls = hit.GetComponent<DuckControls>();
         if (duckControls) {
             duckControls.horizontalSpeed /= speedFactor;

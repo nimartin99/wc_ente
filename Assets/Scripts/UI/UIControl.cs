@@ -16,16 +16,13 @@ public class UIControl : MonoBehaviour
     // Key config UI
     public List<PlayerInfo> players = new List<PlayerInfo>();
 
-    // Represents the player for which keys are being captured (-1 = none)
     private int playerCapturing = -1;
-    // the key number that is configured (0 = up, 1 = left, 2 = down, 3 = right)
     private int currentCaptureKey;
 
     private Button _playButton;
     private Button _BegingButton;
     
     private void Awake() {
-        // Singleton pattern
         if (Instance != null && Instance != this) { 
             Destroy(this); 
         } 
@@ -34,16 +31,16 @@ public class UIControl : MonoBehaviour
         }
     }
     
+    // Start is called before the first frame update
     void Start()
     {
         _uiDocument = GetComponent<UIDocument>();
+
          root = _uiDocument.rootVisualElement;
 
           // Configure the button that starts the menu
         _BegingButton = root.Q<Button>("BegingButton");
-        _BegingButton.RegisterCallback<ClickEvent>(StartMenu);
-
-       
+        _BegingButton.RegisterCallback<ClickEvent>(StartMenu);   
     }
     
     public void EndGame() {
@@ -54,16 +51,12 @@ public class UIControl : MonoBehaviour
     /// Activates the capturing for the key configuration for a player
     /// </summary>
     /// <param name="clickEvent"></param>
+
     private void ActivateCapturing(ClickEvent clickEvent) {
         VisualElement target = (Button) clickEvent.target;
-        // Get which player the keys are configured for by slicing the number from the button name
         playerCapturing = target.name[6] - '0';
     }
 
-    /// <summary>
-    /// Method to start the game
-    /// </summary>
-    /// <param name="clickEvent">The click that executes the start of the game</param>
     private void StartGame(ClickEvent clickEvent) {
         _uiDocument.enabled = false;
         GameInitializer.Instance.StartGame(this);
@@ -101,13 +94,10 @@ public class UIControl : MonoBehaviour
 
 
     private void Update() {
-        // If we are capturing key for a player (playerCapturing != -1) and a key is pressed start capturing
         if (playerCapturing != -1 && currentCaptureKey <= 3 && Input.anyKeyDown) {
-            // Cycle through all keys and find which key is pressed
             foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode))) {
                 if (Input.GetKey(keyCode)) {
                     PlayerInfo player = players[playerCapturing - 1];
-                    // Set the key to the belonging direction by switching over the currentCaptureKey
                     switch (currentCaptureKey) {
                         case 0:
                             player.playerUp = keyCode;
@@ -127,7 +117,6 @@ public class UIControl : MonoBehaviour
                         case 3:
                             player.playerRight = keyCode;
                             player.playerRightLabel.text = keyCode.ToString();
-                            // Reset the playerCapturing and currentCaptureKey
                             playerCapturing = -1;
                             currentCaptureKey = 0;
                             break;
