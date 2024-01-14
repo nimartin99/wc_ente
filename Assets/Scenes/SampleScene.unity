@@ -458,6 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10eaf48768bdc54bacbcb88236d43b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPlayers: []
   playerPrefab: {fileID: 7981358162294918825, guid: 967d7c4f23e704c4499f0de62d9ebbfa, type: 3}
   powerUpPrefab: {fileID: 169651498870941878, guid: 96fbb55a82bb51e4cade52f43e2fc815, type: 3}
   pipePrefab: {fileID: 675532662144954221, guid: 9a90352b65b85b843ab51ae748690296, type: 3}
@@ -777,6 +778,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe366a9075bad34db8dde91ad67f99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyConfiguration: {fileID: 9197481963319205126, guid: a454272c64cf41041a100790e3bca3da, type: 3}
+  _gameOverUI: {fileID: 9197481963319205126, guid: 7557899aedd501247a3139655d7179f0, type: 3}
 --- !u!1 &1267624015
 GameObject:
   m_ObjectHideFlags: 0
