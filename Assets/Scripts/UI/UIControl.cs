@@ -8,8 +8,10 @@ using UnityEngine.UIElements;
 public class UIControl : MonoBehaviour
 {
     public static UIControl Instance { get; private set; }
-    
+     VisualElement root;
     private UIDocument _uiDocument;
+   [SerializeField] private VisualTreeAsset _keyConfiguration;
+   [SerializeField] private VisualTreeAsset _gameOverUI;
     
     // Key config UI
     public List<PlayerInfo> players = new List<PlayerInfo>();
@@ -20,6 +22,7 @@ public class UIControl : MonoBehaviour
     private int currentCaptureKey;
 
     private Button _playButton;
+    private Button _BegingButton;
     
     private void Awake() {
         // Singleton pattern
@@ -34,9 +37,46 @@ public class UIControl : MonoBehaviour
     void Start()
     {
         _uiDocument = GetComponent<UIDocument>();
-        VisualElement root = _uiDocument.rootVisualElement;
-        
-        // Configure the button that starts the game
+         root = _uiDocument.rootVisualElement;
+
+          // Configure the button that starts the menu
+        _BegingButton = root.Q<Button>("BegingButton");
+        _BegingButton.RegisterCallback<ClickEvent>(StartMenu);
+
+       
+    }
+    
+    public void EndGame() {
+         _uiDocument.enabled = true;
+        _uiDocument.visualTreeAsset = _gameOverUI;
+    }
+    /// <summary>
+    /// Activates the capturing for the key configuration for a player
+    /// </summary>
+    /// <param name="clickEvent"></param>
+    private void ActivateCapturing(ClickEvent clickEvent) {
+        VisualElement target = (Button) clickEvent.target;
+        // Get which player the keys are configured for by slicing the number from the button name
+        playerCapturing = target.name[6] - '0';
+    }
+
+    /// <summary>
+    /// Method to start the game
+    /// </summary>
+    /// <param name="clickEvent">The click that executes the start of the game</param>
+    private void StartGame(ClickEvent clickEvent) {
+        _uiDocument.enabled = false;
+        GameInitializer.Instance.StartGame(this);
+    }
+
+        private void StartMenu(ClickEvent clickEvent) {
+        _uiDocument.visualTreeAsset = _keyConfiguration;
+        ConfigurationScreen();
+    }
+
+    private void ConfigurationScreen() {
+ // Configure the button that starts the game
+         root = _uiDocument.rootVisualElement;
         _playButton = root.Q<Button>("playButton");
         _playButton.RegisterCallback<ClickEvent>(StartGame);
         
@@ -58,25 +98,7 @@ public class UIControl : MonoBehaviour
             players[i].activateButton.RegisterCallback<ClickEvent>(ActivateCapturing);
         }
     }
-    
-    /// <summary>
-    /// Activates the capturing for the key configuration for a player
-    /// </summary>
-    /// <param name="clickEvent"></param>
-    private void ActivateCapturing(ClickEvent clickEvent) {
-        VisualElement target = (Button) clickEvent.target;
-        // Get which player the keys are configured for by slicing the number from the button name
-        playerCapturing = target.name[6] - '0';
-    }
 
-    /// <summary>
-    /// Method to start the game
-    /// </summary>
-    /// <param name="clickEvent">The click that executes the start of the game</param>
-    private void StartGame(ClickEvent clickEvent) {
-        _uiDocument.enabled = false;
-        GameInitializer.Instance.StartGame(this);
-    }
 
     private void Update() {
         // If we are capturing key for a player (playerCapturing != -1) and a key is pressed start capturing
