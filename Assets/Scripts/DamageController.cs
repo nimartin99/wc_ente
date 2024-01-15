@@ -46,8 +46,8 @@ public class DamageController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             DuckControls opponent =  other.gameObject.GetComponentInParent<DuckControls>();
-            myDuck.pushMovement = opponent.zRotation * opponent.bounceForce;
-            opponent.pushMovement = myDuck.zRotation * myDuck.bounceForce;
+            myDuck.pushMovement = opponent.zRotation * opponent.bounceForce * other.transform.localScale.x;
+            opponent.pushMovement = myDuck.zRotation * myDuck.bounceForce * transform.localScale.x;
         }
     }
 
