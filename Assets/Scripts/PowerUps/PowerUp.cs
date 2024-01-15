@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerUp : MonoBehaviour {
-    [SerializeField] private float powerUpFloatSpeed;
     [SerializeField] private float powerUpRotationSpeed;
     [SerializeField] public int duration;
     

@@ -9,6 +9,7 @@ public class PowerUpSpawner : MonoBehaviour
     [SerializeField]
     public GameObject[] powerUpPrefabs;
 
+    private int counter = 2;
     private static List<Transform> currentPowerups = new List<Transform>();
 
     private float lastSpawnTime = 0;
@@ -32,8 +33,10 @@ public class PowerUpSpawner : MonoBehaviour
     }
 
     void SpawnPowerUp() {
-        int spawnIndex = Random.Range(0, 0);
-
+        int spawnIndex = 4;
+        // int spawnIndex = 2;
+        counter++;
+        
         // ^1 means last index
         Transform lastPipe = PipeGenerator.Instance.currentPipes[^1];
         float randomPipeProgress = Random.Range(0.1f, 0.9f);
