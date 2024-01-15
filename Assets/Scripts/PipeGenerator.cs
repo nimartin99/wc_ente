@@ -60,7 +60,7 @@ public class PipeGenerator : MonoBehaviour {
         
         if (singlePipeProgress > currentPipes[0].GetComponent<Pipe>().pipeLength) {
             singlePipeProgress = 0;
-            Destroy(currentPipes[0].gameObject);
+            //Destroy(currentPipes[0].gameObject);
             for (int j = 0; j < currentPipes.Length - 1; j++) {
                 currentPipes[j] = currentPipes[j + 1];
             }
