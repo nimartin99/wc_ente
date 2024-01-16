@@ -20,6 +20,11 @@ public class PipeGenerator : MonoBehaviour {
     
     private PipeType[] debugPipe = new[] { PipeType.Straight, PipeType.CurveLeft, PipeType.CurveRight };
     private int index;
+
+    // keep track of right and left turns to avoid circles. -1 for left turns and +1 for right turns
+    //has to be kept between -1 and 1
+    //TODO: implement better solution that allows for 180 turns
+    private float turncounter;
     
     public enum PipeType {
         Straight,
@@ -60,7 +65,7 @@ public class PipeGenerator : MonoBehaviour {
         
         if (singlePipeProgress > currentPipes[0].GetComponent<Pipe>().pipeLength) {
             singlePipeProgress = 0;
-            Destroy(currentPipes[0].gameObject);
+            //Destroy(currentPipes[0].gameObject);
             for (int j = 0; j < currentPipes.Length - 1; j++) {
                 currentPipes[j] = currentPipes[j + 1];
             }
@@ -106,7 +111,17 @@ public class PipeGenerator : MonoBehaviour {
         } else {
             index++;
         }
-        
+
+        if (pipeType == PipeType.CurveRight && turncounter >= 1)
+        {
+            pipeType = PipeType.CurveLeft;
+        }
+        if (pipeType == PipeType.CurveLeft && turncounter <=-1)
+        {
+            pipeType = PipeType.CurveRight;
+        }
+
+
         Transform nextPipe;
         if (pipeType == PipeType.CurveRight) {
             nextPipe = Instantiate(curveRightPipe, transform);
@@ -114,12 +129,14 @@ public class PipeGenerator : MonoBehaviour {
             nextPipe.rotation = Quaternion.Euler(0, 0 + currentEndRotation, 90);
             currentEndPoint += 5.5f * ConvertAngleToVector2(currentEndRotation);
             currentEndRotation += 90;
+            turncounter++;
         } else if (pipeType == PipeType.CurveLeft) {
             nextPipe = Instantiate(curveLeftPipe, transform);
             nextPipe.position = currentEndPoint + transform.position;
             nextPipe.rotation = Quaternion.Euler(0, 0 + currentEndRotation, -90);
             currentEndPoint += 5.5f * ConvertAngleToVector3(currentEndRotation);
             currentEndRotation -= 90;
+            turncounter--;
         } else {
             nextPipe = Instantiate(straightPipe, transform);
             nextPipe.position = currentEndPoint + transform.position;

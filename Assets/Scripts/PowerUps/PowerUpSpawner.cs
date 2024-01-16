@@ -33,10 +33,9 @@ public class PowerUpSpawner : MonoBehaviour
     }
 
     void SpawnPowerUp() {
-        int spawnIndex = 4;
-        // int spawnIndex = 2;
-        counter++;
-        
+
+        int spawnIndex = Random.Range(0, powerUpPrefabs.Length);
+
         // ^1 means last index
         Transform lastPipe = PipeGenerator.Instance.currentPipes[^1];
         float randomPipeProgress = Random.Range(0.1f, 0.9f);
