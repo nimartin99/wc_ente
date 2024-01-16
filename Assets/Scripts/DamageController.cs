@@ -23,10 +23,10 @@ public class DamageController : MonoBehaviour
 
     private void Update()
     {
-        //if (health < 100 && regainHealthCoroutine == null)
-        //{
-        //    regainHealthCoroutine = StartCoroutine(RegainHealth());
-        //}
+        if (health == 0) {
+            GameInitializer.Instance.currentPlayers.Remove(transform.parent);
+            Destroy(transform.parent.gameObject);
+        }
     }
     
     private void OnTriggerEnter(Collider other)
@@ -34,7 +34,7 @@ public class DamageController : MonoBehaviour
         if (other.CompareTag("Obstacle") && !isShieldActive)
         {
             Debug.Log("Collision with obstacle");
-            health = Mathf.Max(health - 10, 0); // Decrease health but not below 0
+            health = Mathf.Max(health - 50, 0); // Decrease health but not below 0
             UpdateHealthUI(); // Update the health UI
 
             if (regainHealthCoroutine != null)
@@ -64,7 +64,7 @@ public class DamageController : MonoBehaviour
 
     public void CollectHealth()
     {
-        health = Mathf.Min(health + 5, 100f); // Increase health but not above 100
+        health = Mathf.Min(health + 10, 100f); // Increase health but not above 100
         UpdateHealthUI(); // Update the health UI
 
         if (regainHealthCoroutine != null)

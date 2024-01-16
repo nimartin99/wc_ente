@@ -9,6 +9,7 @@ public class PowerUpSpawner : MonoBehaviour
     [SerializeField]
     public GameObject[] powerUpPrefabs;
 
+    private int counter = 2;
     private static List<Transform> currentPowerups = new List<Transform>();
 
     private float lastSpawnTime = 0;
@@ -32,6 +33,7 @@ public class PowerUpSpawner : MonoBehaviour
     }
 
     void SpawnPowerUp() {
+
         int spawnIndex = Random.Range(0, powerUpPrefabs.Length);
 
         // ^1 means last index

@@ -8,7 +8,7 @@ public class PowerUpScaling : PowerUp
     public Sprite ScaleUp;
     public Image PowerUpTarget;
 
-    private float scalingFactor; // Variable to store the randomly chosen scaling factor
+    [SerializeField] private float scalingFactor;
 
     private void OnEnable()
     {
@@ -20,11 +20,10 @@ public class PowerUpScaling : PowerUp
         PowerUpTarget.enabled = true;
         PowerUpTarget.sprite = ScaleUp;
 
-        // Randomly choose between 2x and 0.5x scaling
-        scalingFactor = Random.Range(0, 2) > 0 ? 2f : 0.5f;
-
         Vector3 scale = hit.gameObject.transform.localScale;
         hit.gameObject.transform.localScale = new Vector3(scale.x * scalingFactor, scale.y * scalingFactor, scale.z * scalingFactor);
+        Debug.Log("Scale " + hit.gameObject + " by " +  scalingFactor + " so it yields " 
+                  + hit.gameObject.transform.localScale);
 
         base.PowerUpCollected(hit);
     }

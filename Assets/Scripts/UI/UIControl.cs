@@ -44,9 +44,11 @@ public class UIControl : MonoBehaviour
     }
     
     public void EndGame() {
-         _uiDocument.enabled = true;
+        Debug.Log("Game is over");
+        _uiDocument.enabled = true;
         _uiDocument.visualTreeAsset = _gameOverUI;
     }
+    
     /// <summary>
     /// Activates the capturing for the key configuration for a player
     /// </summary>

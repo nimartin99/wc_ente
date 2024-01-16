@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class GameInitializer : MonoBehaviour
-{
+public class GameInitializer : MonoBehaviour {
+    public bool gameRunning;
     public List<Transform> currentPlayers = new List<Transform>();
     public static GameInitializer Instance { get; private set; }
     [SerializeField] private Transform playerPrefab;
@@ -24,17 +24,19 @@ public class GameInitializer : MonoBehaviour
         // Singleton pattern
         if (Instance != null && Instance != this) { 
             Destroy(this); 
-        } 
-        else { 
+        }  else { 
             Instance = this; 
         }
     }
 
     private void Update() {
-        if (currentPlayers.Count == 1) {
+        // End the game
+        if (currentPlayers.Count == 1 && gameRunning) {
+            gameRunning = false;
             UIControl.Instance.EndGame();
         }
     }
+    
     /// <summary>
     /// The Method that starts the game by initializing and spawning all the game objects in the scene
     /// </summary>
@@ -44,6 +46,7 @@ public class GameInitializer : MonoBehaviour
         SpawnLevelPrefabs();
         SpawnPlayers(uiControl);
         ObstacleSpawner.Instance.spawnObstacles = true;
+        gameRunning = true;
     }
     
     private void SpawnLevelPrefabs() {

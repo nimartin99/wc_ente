@@ -225,8 +225,9 @@ MonoBehaviour:
   powerUpPrefabs:
   - {fileID: 9018732376902988465, guid: b602aaedcdbbd7c48981478edb786668, type: 3}
   - {fileID: 9018732376902988465, guid: 5d20bb3b6e5918c489fd2c6e77469824, type: 3}
-  - {fileID: 1551158566597376822, guid: ac68ac3ec9e62a644a30b5f12d479f94, type: 3}
-  - {fileID: 1551158566597376822, guid: 96fbb55a82bb51e4cade52f43e2fc815, type: 3}
+  - {fileID: 9018732376902988465, guid: c539db371187fe14fa51da69a5391e28, type: 3}
+  - {fileID: 9018732376902988465, guid: 8913c5532c05e424981759d04af4bfd7, type: 3}
+  - {fileID: 9018732376902988465, guid: 82023593ef0bad345aa7b2327c66f4a7, type: 3}
 --- !u!4 &35433135
 Transform:
   m_ObjectHideFlags: 0
@@ -236,7 +237,7 @@ Transform:
   m_GameObject: {fileID: 35433133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.055945396, y: 0.16167736, z: -0.055945396}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -250,18 +251,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 963962951457105610, guid: ba6d3a1004b07c646a4d8f873dfb6259, type: 3}
-      propertyPath: obstaclePrefabs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 963962951457105610, guid: ba6d3a1004b07c646a4d8f873dfb6259, type: 3}
-      propertyPath: obstaclePrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 3808914864187927168, guid: ac2edf3de25d2c040848f662e9bc8071, type: 3}
-    - target: {fileID: 963962951457105610, guid: ba6d3a1004b07c646a4d8f873dfb6259, type: 3}
-      propertyPath: obstaclePrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 6552788855547400598, guid: 80ed6c864c6dcb0468ac2001f4b1efee, type: 3}
     - target: {fileID: 6709557693745723126, guid: ba6d3a1004b07c646a4d8f873dfb6259, type: 3}
       propertyPath: m_Name
       value: ObstacleSpawner
@@ -458,6 +447,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10eaf48768bdc54bacbcb88236d43b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameRunning: 0
+  currentPlayers: []
   playerPrefab: {fileID: 7981358162294918825, guid: 967d7c4f23e704c4499f0de62d9ebbfa, type: 3}
   powerUpPrefab: {fileID: 169651498870941878, guid: 96fbb55a82bb51e4cade52f43e2fc815, type: 3}
   pipePrefab: {fileID: 675532662144954221, guid: 9a90352b65b85b843ab51ae748690296, type: 3}
@@ -777,6 +768,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe366a9075bad34db8dde91ad67f99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyConfiguration: {fileID: 9197481963319205126, guid: a454272c64cf41041a100790e3bca3da, type: 3}
+  _gameOverUI: {fileID: 9197481963319205126, guid: 7557899aedd501247a3139655d7179f0, type: 3}
 --- !u!1 &1267624015
 GameObject:
   m_ObjectHideFlags: 0
