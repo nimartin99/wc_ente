@@ -13,9 +13,10 @@ public class PowerUpSpeed : PowerUp {
     protected override void PowerUpCollected(GameObject hit) {
         PowerUpTarget.GetComponent<Image>().enabled = true;
         PowerUpTarget.sprite = SpeedUp;
-        DuckControls duckControls = hit.GetComponent<DuckControls>();
+        DuckControls duckControls = hit.GetComponentInParent<DuckControls>();
         if (duckControls) {
             duckControls.horizontalSpeed *= speedFactor;
+            duckControls.maxRotationSpeed *= speedFactor;
             base.PowerUpCollected(hit);
         }
     }
@@ -23,9 +24,10 @@ public class PowerUpSpeed : PowerUp {
     protected override IEnumerator PowerUpElapsed(GameObject hit, int duration) {
         yield return new WaitForSeconds(duration);
         PowerUpTarget.GetComponent<Image>().enabled = false;
-        DuckControls duckControls = hit.GetComponent<DuckControls>();
+        DuckControls duckControls = hit.GetComponentInParent<DuckControls>();
         if (duckControls) {
             duckControls.horizontalSpeed /= speedFactor;
+            duckControls.maxRotationSpeed /= speedFactor;
             base.PowerUpElapsed(hit, duration);
         }
     } 
