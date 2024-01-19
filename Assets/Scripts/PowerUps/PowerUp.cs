@@ -6,7 +6,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour {
     [SerializeField] private float powerUpRotationSpeed;
     [SerializeField] public int duration;
-    
+    public GameObject particles;
     private void Update() {
         MovePowerup();
         transform.Rotate(Vector3.up * (powerUpRotationSpeed * Time.deltaTime));
@@ -29,13 +29,20 @@ public class PowerUp : MonoBehaviour {
     }
 
     private void HidePowerUp() {
+        
         gameObject.GetComponent<SphereCollider>().enabled = false;
+        /*
         for (int i = 0; i < gameObject.transform.childCount; i++) {
             MeshRenderer meshRenderer = gameObject.transform.GetChild(i).GetComponent<MeshRenderer>();
             if (meshRenderer != null) {
                 gameObject.transform.GetChild(i).GetComponent<MeshRenderer>().enabled = false;
             }
         }
+        */
+        GetComponent<MeshRenderer>().enabled = false;
+        
+        Instantiate(particles, transform.position, transform.rotation);
+        //Destroy(gameObject);
         
     }
 

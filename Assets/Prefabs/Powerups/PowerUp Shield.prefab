@@ -214,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpRotationSpeed: 150
   duration: 10
+  particles: {fileID: 3657047206815630796, guid: 02285e3a38080984c9ef5849bf6a785f, type: 3}
   ShieldSprite: {fileID: 21300000, guid: cb133b8881c2b3740aa4eac4e2e0f4cc, type: 3}
   PowerUpTarget: {fileID: 0}
   shieldDuration: 10
