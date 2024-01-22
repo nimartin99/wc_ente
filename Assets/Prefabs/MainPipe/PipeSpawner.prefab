@@ -44,7 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31720a86abc8af944b7e1e29ceadbbcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  straightPipe: {fileID: 5405750524702882072, guid: 2b2e3a9eb5f805e4e925950ee24f1531, type: 3}
-  curveRightPipe: {fileID: 595840473556856564, guid: f10578d15148b3845a9198ee65b74c6a, type: 3}
-  curveLeftPipe: {fileID: 595840473556856564, guid: 3c45bf2cdd395f648902f637a90b0f49, type: 3}
+  straightPipe: {fileID: 5405750524702882072, guid: 885acb49003e0e04baa78035f06545f8, type: 3}
+  curveRightPipe: {fileID: 595840473556856564, guid: dfdc055356f526a40aaeee76bd5a1db9, type: 3}
+  curveLeftPipe: {fileID: 595840473556856564, guid: 90ae4a11c6ba4f647907ffdb048b0300, type: 3}
+  currentEndPoint: {x: 0, y: 0, z: 0}
+  currentPipes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   objectToMove: {fileID: 0}

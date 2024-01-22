@@ -47,20 +47,10 @@ public class ObstacleSpawner : MonoBehaviour
         // ^1 means last index
         Transform lastPipe = PipeGenerator.Instance.currentPipes[^1];
         float randomPipeProgress = Random.Range(0.1f, 0.9f);
-        Vector3 spawnPoint = PipeGenerator.BezierCurve(
-            randomPipeProgress,
-            lastPipe.transform.GetChild(0).position, 
-            lastPipe.transform.GetChild(1).position, 
-            lastPipe.transform.GetChild(2).position, 
-            lastPipe.transform.GetChild(3).position);
+        Vector3 spawnPoint = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress);
         
         // Adjust the rotation angle of the object based on the next step in the Bezier curve
-        Vector3 nextPosition = PipeGenerator.BezierCurve(
-            randomPipeProgress + 0.01f,
-            lastPipe.transform.GetChild(0).position,
-            lastPipe.transform.GetChild(1).position,
-            lastPipe.transform.GetChild(2).position,
-            lastPipe.transform.GetChild(3).position);
+        Vector3 nextPosition = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress + 0.01f);
         
         GameObject newObstacle = Instantiate(obstaclePrefabs[spawnIndex], spawnPoint, Quaternion.identity, transform);
         
