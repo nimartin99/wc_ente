@@ -39,7 +39,19 @@ public class PowerUp : MonoBehaviour {
             }
         }
         */
-        GetComponent<MeshRenderer>().enabled = false;
+        if (GetComponent<MeshRenderer>())
+        {
+            GetComponent<MeshRenderer>().enabled = false;
+        }
+        else
+        {
+            for (int i = 0; i < gameObject.transform.childCount; i++) {
+                MeshRenderer meshRenderer = gameObject.transform.GetChild(i).GetComponent<MeshRenderer>();
+                if (meshRenderer != null) {
+                    gameObject.transform.GetChild(i).GetComponent<MeshRenderer>().enabled = false;
+                }
+            } 
+        }
         
         Instantiate(particles, transform.position, transform.rotation);
         //Destroy(gameObject);
