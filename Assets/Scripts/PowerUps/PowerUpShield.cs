@@ -24,7 +24,7 @@ public class PowerUpShield : PowerUp
         DamageController damageController = hit.GetComponent<DamageController>();
         if (damageController != null)
         {
-            damageController.isShieldActive = true;
+            damageController.toogleShield(true);
             StartCoroutine(ShieldDuration(hit, shieldDuration));
             base.PowerUpCollected(hit);
         }
@@ -37,7 +37,8 @@ public class PowerUpShield : PowerUp
         DamageController damageController = hit.GetComponent<DamageController>();
         if (damageController != null)
         {
-            damageController.isShieldActive = false;
+            damageController.toogleShield(false);
+
         }
 
         PowerUpTarget.enabled = false; // Hide the UI element

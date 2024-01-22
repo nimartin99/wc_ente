@@ -6,6 +6,7 @@ public class DamageController : MonoBehaviour
 {
 
     public DuckControls myDuck;
+    public MeshRenderer shield;
 
     public float health = 100f; // Initial health
     private Coroutine regainHealthCoroutine; // Coroutine for regaining health over time
@@ -101,6 +102,20 @@ public class DamageController : MonoBehaviour
             {
                 healthText.color = new Color(0.5f, 0, 0); // Dark red color
             }
+        }
+    }
+
+    public void toogleShield(bool active)
+    {
+        if (active)
+        {
+            isShieldActive = true;
+            shield.enabled = true;
+        }
+        else
+        {
+            isShieldActive = false;
+            shield.enabled = false;
         }
     }
 }

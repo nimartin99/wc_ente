@@ -103,7 +103,7 @@ public class PipeGenerator : MonoBehaviour {
     }
 
     private Transform GenerateNextPipe() {
-        Debug.Log("Generate new Pipe now");
+        //Debug.Log("Generate new Pipe now");
         PipeType pipeType = (PipeType) Random.Range(0, System.Enum.GetValues(typeof(PipeType)).Length);
         // PipeType pipeType = debugPipe[index];
         if (index == 2) {
