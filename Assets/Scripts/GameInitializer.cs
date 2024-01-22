@@ -12,6 +12,18 @@ public class GameInitializer : MonoBehaviour {
     [SerializeField] private Transform pipePrefab;
     [SerializeField] private Transform playerAnchorPrefab;
     private Transform pipeSpawner;
+
+    private Color[] possibleColors =
+    {
+        Color.yellow,
+        Color.cyan, 
+        Color.magenta,
+        Color.blue, 
+        Color.green, 
+        Color.red, 
+        Color.white, 
+        Color.gray, 
+    };
     
     // Standard keycodes for first two players
     private KeyCode[,] standardCodes =
@@ -63,6 +75,7 @@ public class GameInitializer : MonoBehaviour {
             playerAnchor.eulerAngles = new Vector3(0, 0, 90 * i);            
 
             DuckControls playerScript = playerAnchor.GetComponent<DuckControls>();
+            playerScript.SetColor(possibleColors[i]);
             currentPlayers.Add(playerAnchor);
             
      // Set keycodes for players

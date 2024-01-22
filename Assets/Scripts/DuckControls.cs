@@ -155,4 +155,9 @@ public class DuckControls : MonoBehaviour
             }
         }
     }
+
+    public void SetColor(Color color)
+    {
+        duckModel.GetComponent<MeshRenderer>().material.SetColor("_Color",color);
+    }
 }
