@@ -50,6 +50,13 @@ public class DamageController : MonoBehaviour
             myDuck.pushMovement = opponent.zRotation * opponent.bounceForce * other.transform.localScale.x;
             opponent.pushMovement = myDuck.zRotation * myDuck.bounceForce * transform.localScale.x;
         }
+        if(other.CompareTag("Water"))
+        {
+            Debug.Log("Collision with obstacle");
+            health = 0f;// Decrease health but not below 0
+            UpdateHealthUI(); // Update the health UI
+
+        }
     }
 
     private IEnumerator RegainHealth()

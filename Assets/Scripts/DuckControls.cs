@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class DuckControls : MonoBehaviour
 {
+    public static DuckControls instance;
     [SerializeField] private GameObject duckModel;
     [SerializeField] public KeyCode keyUp;
     [SerializeField] public KeyCode keyLeft;
@@ -16,7 +17,7 @@ public class DuckControls : MonoBehaviour
     [SerializeField] private float jumpForce = 2f;
     [SerializeField] private LayerMask groundLayer;
     public bool _isGrounded;
-
+  //  public GameObject Waves_Set;
    
     //the radius of the pipe for grounding
     public float radius = .45f;
@@ -52,6 +53,7 @@ public class DuckControls : MonoBehaviour
     public float friction = 1;
     private void Start() {
         rb = GetComponent<Rigidbody>();
+        instance = this;
     }
 
     void Update() {
@@ -154,10 +156,5 @@ public class DuckControls : MonoBehaviour
                 rb2.AddForce(direction * bounceForce, ForceMode.Impulse);
             }
         }
-    }
-
-    public void SetColor(Color color)
-    {
-        duckModel.GetComponent<MeshRenderer>().material.SetColor("_Color",color);
     }
 }

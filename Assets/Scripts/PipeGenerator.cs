@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class PipeGenerator : MonoBehaviour {
@@ -13,7 +14,7 @@ public class PipeGenerator : MonoBehaviour {
     [SerializeField] private Transform straightPipe;
     [SerializeField] private Transform curveRightPipe;
     [SerializeField] private Transform curveLeftPipe;
-
+    
     private float singlePipeProgress = 0;
     public Vector3 currentEndPoint;
     private float currentEndRotation;
@@ -35,6 +36,10 @@ public class PipeGenerator : MonoBehaviour {
     public Transform[] currentPipes = new Transform[5];
     public GameObject objectToMove;
     
+
+   
+
+
     private void Awake() {
         // Singleton pattern
         if (Instance != null && Instance != this) { 
@@ -50,11 +55,14 @@ public class PipeGenerator : MonoBehaviour {
     {
         // Spawn 3 straight pipes
         for (int i = 0; i < currentPipes.Length; i++) {
-            currentPipes[i] = Instantiate(straightPipe, new Vector3(0, 0, -4.0f * i), Quaternion.identity, transform);
+            currentPipes[i] = Instantiate(straightPipe, new Vector3(0, 0, -4.0f * i), Quaternion.Euler(180, 0, 0), transform);
         }
         currentEndPoint = new Vector3(0, 0, -20.0f);
         currentEndRotation = 0f;
     }
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -79,14 +87,22 @@ public class PipeGenerator : MonoBehaviour {
         singlePipeProgress += moveValue;
         
         // Calculate the position on the Bezier curve
-        Vector3 newPosition = currentPipes[0].GetComponent<Pipe>().MoveAlong(singlePipeProgress);
+        Vector3 newPosition = BezierCurve(singlePipeProgress / currentPipes[0].GetComponent<Pipe>().pipeLength, 
+            currentPipes[0].transform.GetChild(0).position, 
+            currentPipes[0].transform.GetChild(1).position, 
+            currentPipes[0].transform.GetChild(2).position, 
+            currentPipes[0].transform.GetChild(3).position);
         
         // Move the object to the new position
         obj.transform.position = newPosition;
         
         // Adjust the rotation angle of the object based on the next step in the Bezier curve
-        //TODO: potentially not ideal between pipes
-        Vector3 nextPosition = currentPipes[0].GetComponent<Pipe>().MoveAlong(singlePipeProgress+0.01f);
+        Vector3 nextPosition = BezierCurve(
+            (singlePipeProgress + moveValue) / currentPipes[0].GetComponent<Pipe>().pipeLength,
+            currentPipes[0].transform.GetChild(0).position,
+            currentPipes[0].transform.GetChild(1).position,
+            currentPipes[0].transform.GetChild(2).position,
+            currentPipes[0].transform.GetChild(3).position);
 
         Vector3 direction = (nextPosition - newPosition).normalized;
         if (direction != Vector3.zero) {
@@ -118,22 +134,22 @@ public class PipeGenerator : MonoBehaviour {
         if (pipeType == PipeType.CurveRight) {
             nextPipe = Instantiate(curveRightPipe, transform);
             nextPipe.position = currentEndPoint + transform.position;
-            nextPipe.rotation = Quaternion.Euler(0, 0 + currentEndRotation, 0);
-            currentEndPoint += (Quaternion.AngleAxis(currentEndRotation, Vector3.up) * new Vector3(-4,0,-4));
+            nextPipe.rotation = Quaternion.Euler(0, 0 + currentEndRotation, 90);
+            currentEndPoint += 5.5f * ConvertAngleToVector2(currentEndRotation);
             currentEndRotation += 90;
             turncounter++;
         } else if (pipeType == PipeType.CurveLeft) {
             nextPipe = Instantiate(curveLeftPipe, transform);
             nextPipe.position = currentEndPoint + transform.position;
-            nextPipe.rotation = Quaternion.Euler(0, 0 + currentEndRotation, 0);
-            currentEndPoint += (Quaternion.AngleAxis(currentEndRotation, Vector3.up) * new Vector3(4,0,-4));
+            nextPipe.rotation = Quaternion.Euler(0, 0 + currentEndRotation, -90);
+            currentEndPoint += 5.5f * ConvertAngleToVector3(currentEndRotation);
             currentEndRotation -= 90;
             turncounter--;
         } else {
             nextPipe = Instantiate(straightPipe, transform);
             nextPipe.position = currentEndPoint + transform.position;
-            nextPipe.rotation = Quaternion.Euler(0, 0 + currentEndRotation, 0);
-            currentEndPoint += (Quaternion.AngleAxis(currentEndRotation, Vector3.up) * new Vector3(0,0,-4));
+            nextPipe.rotation = Quaternion.Euler(180, 0 + currentEndRotation, 0);
+            currentEndPoint += 4f * ConvertAngleToVector1(currentEndRotation);
         }
         return nextPipe;
     }
@@ -152,8 +168,6 @@ public class PipeGenerator : MonoBehaviour {
 
         return p;
     }
-    
-  
     
     // Method 1
     public Vector3 ConvertAngleToVector1(float angle) {
