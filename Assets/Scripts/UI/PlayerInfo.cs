@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 public class PlayerInfo {
     public Button activateButton;
@@ -6,6 +7,9 @@ public class PlayerInfo {
     public Label playerLeftLabel;
     public Label playerDuckLabel;
     public Label playerRightLabel;
+    public VisualElement duckDisplay;
+    public Button changeHatButton;
+    public DuckCustomizer customizer;
     
     public KeyCode playerUp;
     public KeyCode playerLeft;

@@ -5,6 +5,10 @@ using UnityEngine;
 public class DuckCustomizer : MonoBehaviour
 {
     public GameObject hat;
+    public Camera camera;
+    public RenderTexture renderTexture;
+    public int size = 256;
+
 
     public GameObject[] possibleHats;
 
@@ -14,6 +18,8 @@ public class DuckCustomizer : MonoBehaviour
     {
         Destroy(hat);
         hat = Instantiate(possibleHats[hatCounter],transform.position,transform.rotation,this.transform);
+        renderTexture = new RenderTexture(size, size, 16);
+        camera.targetTexture = renderTexture;
     }
 
     // Update is called once per frame
