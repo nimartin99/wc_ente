@@ -188,10 +188,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 275f09bf8f3f3564c8ed65a92d70acec, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: bebd5669b7c94cd4eae8f2304854f448, type: 2}
     - target: {fileID: 919132149155446097, guid: 275f09bf8f3f3564c8ed65a92d70acec, type: 3}
       propertyPath: m_Name
       value: PipeStraight
@@ -245,7 +241,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -5470870901283189816, guid: 275f09bf8f3f3564c8ed65a92d70acec, type: 3}
+  m_Mesh: {fileID: 2380976335221014420, guid: 275f09bf8f3f3564c8ed65a92d70acec, type: 3}
 --- !u!114 &6794139160690280135
 MonoBehaviour:
   m_ObjectHideFlags: 0

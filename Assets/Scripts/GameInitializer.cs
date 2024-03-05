@@ -6,16 +6,25 @@ using UnityEngine;
 public class GameInitializer : MonoBehaviour {
     public bool gameRunning;
     public List<Transform> currentPlayers = new List<Transform>();
-    public GameObject WaveSet;
-    public GameObject WaveSet2;
     public static GameInitializer Instance { get; private set; }
-    [SerializeField] public Transform playerPrefab;
+    [SerializeField] private Transform playerPrefab;
     [SerializeField] private Transform powerUpPrefab;
     [SerializeField] private Transform pipePrefab;
     [SerializeField] private Transform playerAnchorPrefab;
     private Transform pipeSpawner;
-    ///public GameObject Waves_Set;
-    public Vector3 offset = new Vector3(0f, 0f, 0f);
+
+    private Color[] possibleColors =
+    {
+        Color.yellow,
+        Color.cyan, 
+        Color.magenta,
+        Color.blue, 
+        Color.green, 
+        Color.red, 
+        Color.white, 
+        Color.gray, 
+    };
+    
     // Standard keycodes for first two players
     private KeyCode[,] standardCodes =
     {
@@ -38,17 +47,8 @@ public class GameInitializer : MonoBehaviour {
             gameRunning = false;
             UIControl.Instance.EndGame();
         }
-        //  playerPrefab = Instantiate(WaveSet.transform, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0));
-        // instantia
-     //    WaveSet.transform.position = currentPlayers[0].transform.position + offset;
-     //   WaveSet.transform.rotation = currentPlayers[0].transform.rotation;
-
-        //    currentPlayers[0].transform.position = WaveSet.transform.position;
-        //    vetor3  WaveSet.transform.position = new Vector3
-        //  WaveSet.transform.position = currentPlayers[0].transform.position;
-        //  WaveSet.transform.rotation = currentPlayers[0].transform.rotation;
     }
-
+    
     /// <summary>
     /// The Method that starts the game by initializing and spawning all the game objects in the scene
     /// </summary>
@@ -57,8 +57,6 @@ public class GameInitializer : MonoBehaviour {
     public void StartGame(UIControl uiControl) {
         SpawnLevelPrefabs();
         SpawnPlayers(uiControl);
-        print("Player");
-
         ObstacleSpawner.Instance.spawnObstacles = true;
         gameRunning = true;
     }
@@ -69,6 +67,7 @@ public class GameInitializer : MonoBehaviour {
 
     private void SpawnPlayers(UIControl uiControl) {
         Transform playerAnchorParent = Instantiate(playerAnchorPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 180, 0));
+        
         for (int i = 0; i < uiControl.players.Count; i++) {
             // Spawn a player prefab
             Transform playerAnchor = Instantiate(playerPrefab, playerAnchorParent);
@@ -76,8 +75,9 @@ public class GameInitializer : MonoBehaviour {
             playerAnchor.eulerAngles = new Vector3(0, 0, 90 * i);            
 
             DuckControls playerScript = playerAnchor.GetComponent<DuckControls>();
+            playerScript.SetColor(possibleColors[i]);
             currentPlayers.Add(playerAnchor);
-          
+            
      // Set keycodes for players
             playerScript.keyUp = uiControl.players[i].playerUp != KeyCode.None ? uiControl.players[i].playerUp: standardCodes[i,0];
             playerScript.keyLeft = uiControl.players[i].playerLeft != KeyCode.None ? uiControl.players[i].playerLeft: standardCodes[i,1];

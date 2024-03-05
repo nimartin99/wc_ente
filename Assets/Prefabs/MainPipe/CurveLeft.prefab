@@ -188,10 +188,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 2a11b6be6469eef498ffb0424d948ce4, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 55b021e74e2f0e942a3ae01220c86223, type: 2}
     - target: {fileID: 919132149155446097, guid: 2a11b6be6469eef498ffb0424d948ce4, type: 3}
       propertyPath: m_Name
       value: CurveLeft
@@ -245,7 +241,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4195458783208207587, guid: 2a11b6be6469eef498ffb0424d948ce4, type: 3}
+  m_Mesh: {fileID: -4738173248973274291, guid: 2a11b6be6469eef498ffb0424d948ce4, type: 3}
 --- !u!114 &6464779717102245392
 MonoBehaviour:
   m_ObjectHideFlags: 0

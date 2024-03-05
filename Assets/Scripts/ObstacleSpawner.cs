@@ -6,67 +6,61 @@ public class ObstacleSpawner : MonoBehaviour
 {
     public static ObstacleSpawner Instance { get; private set; }
 
-    public bool spawnObstacles = true;
-    public float spawnDelayAvg = 10f;
+    // boolean that indicates if obstacles are spawned or not
+    public bool spawnObstacles;
+    // average delay in seconds from the spawn of one Obstacle to the next
+    public float spawnDelayAvg = 10;
+    // percentage of variance in Spawn delay. e.g. if the average delay is set to 1 and the variance to 0.2, the delay will be between 0.8 and 1.2
     public float spawnDelayVariance = 0.2f;
+    // Obstacle Prefabs to spawn. TODO: add probability
     public GameObject[] obstaclePrefabs;
-    public float explosionForce = 500f;
+    
+    private static List<Transform> currentObstacles = new List<Transform>();
 
-    private List<Transform> currentObstacles = new List<Transform>();
-    private float lastSpawn = 0f;
-    private float spawnDelay = 0f;
+    public float exploForce;
 
-    private void Awake()
-    {
+    // keep track of the last time an obstacle has been spawned
+    private float lastSpawn = 0;
+    // the chosen spawn delay for the current obstacle
+    private float spawnDelay = 0;
+    
+    private void Awake() {
         // Singleton pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            Instance = this;
+        if (Instance != null && Instance != this) { 
+            Destroy(this); 
+        } 
+        else {
+            Instance = this; 
         }
     }
 
+    // Update is called once per frame
     void Update()
     {
+        // check for time since last spawn
         float deltaTime = Time.time - lastSpawn;
-
-        if (!spawnObstacles || deltaTime < spawnDelay)
-            return;
-
+        if(!spawnObstacles || deltaTime<spawnDelay) return;
+        
+        // generate random index to choose which obstacle to spawn
         int spawnIndex = Random.Range(0, obstaclePrefabs.Length);
-
+        
+        // ^1 means last index
         Transform lastPipe = PipeGenerator.Instance.currentPipes[^1];
         float randomPipeProgress = Random.Range(0.1f, 0.9f);
-
-        Vector3 spawnPoint = PipeGenerator.BezierCurve(
-            randomPipeProgress,
-            lastPipe.transform.GetChild(0).position,
-            lastPipe.transform.GetChild(1).position,
-            lastPipe.transform.GetChild(2).position,
-            lastPipe.transform.GetChild(3).position);
-
-        // Calculate the next position using a small step on the Bezier curve
-        float step = 0.01f;
-        Vector3 nextPosition = PipeGenerator.BezierCurve(
-            randomPipeProgress + step,
-            lastPipe.transform.GetChild(0).position,
-            lastPipe.transform.GetChild(1).position,
-            lastPipe.transform.GetChild(2).position,
-            lastPipe.transform.GetChild(3).position);
-
-        Quaternion rotation = Quaternion.LookRotation(nextPosition - spawnPoint, Vector3.up);
-
-        GameObject newObstacle = Instantiate(obstaclePrefabs[spawnIndex], spawnPoint, rotation, transform);
-
-        Rigidbody newObstacleRb = newObstacle.GetComponent<Rigidbody>();
-        newObstacleRb.AddExplosionForce(explosionForce, nextPosition, 1.0f);
-
+        Vector3 spawnPoint = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress);
+        
+        // Adjust the rotation angle of the object based on the next step in the Bezier curve
+        Vector3 nextPosition = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress + 0.01f);
+        
+        GameObject newObstacle = Instantiate(obstaclePrefabs[spawnIndex], spawnPoint, Quaternion.identity, transform);
+        
+        newObstacle.GetComponent<Rigidbody>().AddExplosionForce(exploForce, nextPosition, 1.0f);
+        
         currentObstacles.Add(newObstacle.transform);
-
+        
+        // set new random delay
         spawnDelay = Random.Range((1 - spawnDelayVariance) * spawnDelayAvg, (1 + spawnDelayVariance) * spawnDelayAvg);
+        // reset last spawn
         lastSpawn = Time.time;
     }
 }
