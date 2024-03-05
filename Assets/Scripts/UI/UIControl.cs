@@ -3,10 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public class UIControl : MonoBehaviour
 {
+
+    public GameObject customizerPrefab;
+    
     public static UIControl Instance { get; private set; }
      VisualElement root;
     private UIDocument _uiDocument;
@@ -72,6 +77,9 @@ public class UIControl : MonoBehaviour
     private void ConfigurationScreen() {
  // Configure the button that starts the game
          root = _uiDocument.rootVisualElement;
+         
+         
+         
         _playButton = root.Q<Button>("playButton");
         _playButton.RegisterCallback<ClickEvent>(StartGame);
         
@@ -89,7 +97,17 @@ public class UIControl : MonoBehaviour
             players[i].playerLeftLabel = root.Q<Label>("player" + (i + 1) + "LeftLabel");
             players[i].playerDuckLabel = root.Q<Label>("player" + (i + 1) + "DuckLabel");
             players[i].playerRightLabel = root.Q<Label>("player" + (i + 1) + "RightLabel");
-
+            
+            //duck Visualization
+            
+            players[i].customizer = Instantiate(customizerPrefab, Vector3.right * 10 * i, Quaternion.identity ).GetComponent<DuckCustomizer>();
+            players[i].duckDisplay = root.Q<VisualElement>("player" + (i + 1) + "DuckDisplay");
+            players[i].changeHatButton = root.Q<Button>("player" + (i + 1) + "ChangeHat");
+            RenderTexture renderTexture = players[i].customizer.renderTexture;
+            Texture2D cameraTexture = new Texture2D(renderTexture.width,renderTexture.height,DefaultFormat.LDR,1,TextureCreationFlags.None);
+            Graphics.CopyTexture(renderTexture, cameraTexture);
+            players[i].duckDisplay.style.backgroundImage = cameraTexture;
+            
             players[i].activateButton.RegisterCallback<ClickEvent>(ActivateCapturing);
         }
     }
