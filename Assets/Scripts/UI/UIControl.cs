@@ -10,7 +10,6 @@ using UnityEngine.UIElements;
 public class UIControl : MonoBehaviour
 {
 
-    public GameObject customizerPrefab;
     
     public static UIControl Instance { get; private set; }
      VisualElement root;
@@ -26,6 +25,7 @@ public class UIControl : MonoBehaviour
 
     private Button _playButton;
     private Button _BegingButton;
+    public DuckCustomizer[] customizers;
     
     private void Awake() {
         if (Instance != null && Instance != this) { 
@@ -64,6 +64,18 @@ public class UIControl : MonoBehaviour
         playerCapturing = target.name[6] - '0';
     }
 
+    private void ChangeHat(ClickEvent clickEvent)
+    {
+        VisualElement target = (Button) clickEvent.target;
+        int playerId = target.name[6]- '0';
+        playerId -= 1;
+        customizers[playerId].changeHat();
+        RenderTexture renderTexture = players[playerId].customizer.renderTexture;
+        Texture2D cameraTexture = new Texture2D(renderTexture.width,renderTexture.height,DefaultFormat.LDR,1,TextureCreationFlags.None);
+        Graphics.CopyTexture(renderTexture, cameraTexture);
+        players[playerId].duckDisplay.style.backgroundImage = cameraTexture;
+    }
+
     private void StartGame(ClickEvent clickEvent) {
         _uiDocument.enabled = false;
         GameInitializer.Instance.StartGame(this);
@@ -99,15 +111,15 @@ public class UIControl : MonoBehaviour
             players[i].playerRightLabel = root.Q<Label>("player" + (i + 1) + "RightLabel");
             
             //duck Visualization
-            
-            players[i].customizer = Instantiate(customizerPrefab, Vector3.right * 10 * i, Quaternion.identity ).GetComponent<DuckCustomizer>();
+
+            players[i].customizer = customizers[i];
             players[i].duckDisplay = root.Q<VisualElement>("player" + (i + 1) + "DuckDisplay");
             players[i].changeHatButton = root.Q<Button>("player" + (i + 1) + "ChangeHat");
             RenderTexture renderTexture = players[i].customizer.renderTexture;
             Texture2D cameraTexture = new Texture2D(renderTexture.width,renderTexture.height,DefaultFormat.LDR,1,TextureCreationFlags.None);
             Graphics.CopyTexture(renderTexture, cameraTexture);
             players[i].duckDisplay.style.backgroundImage = cameraTexture;
-            
+            players[i].changeHatButton.RegisterCallback<ClickEvent>(ChangeHat);
             players[i].activateButton.RegisterCallback<ClickEvent>(ActivateCapturing);
         }
     }
