@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 public class PlayerInfo {
+    public String playerName;
     public Button activateButton;
     public Label playerUpLabel;
     public Label playerLeftLabel;

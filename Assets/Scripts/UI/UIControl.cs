@@ -23,6 +23,8 @@ public class UIControl : MonoBehaviour
     private int playerCapturing = -1;
     private int currentCaptureKey;
 
+    private VisualElement _playerNameContainer;
+    private Button _addPlayerButton;
     private Button _playButton;
     private Button _BegingButton;
     public DuckCustomizer[] customizers;
@@ -43,7 +45,12 @@ public class UIControl : MonoBehaviour
 
          root = _uiDocument.rootVisualElement;
 
-          // Configure the button that starts the menu
+         // Configure the button and container that lets you add new players
+         _playerNameContainer = root.Q<VisualElement>("PlayerNameContainer");
+         _addPlayerButton = root.Q<Button>("AddPlayerButton");
+         _addPlayerButton.RegisterCallback<ClickEvent>(AddPlayer);  
+         
+         // Configure the button that starts the menu
         _BegingButton = root.Q<Button>("BegingButton");
         _BegingButton.RegisterCallback<ClickEvent>(StartMenu);   
     }
@@ -53,12 +60,21 @@ public class UIControl : MonoBehaviour
         _uiDocument.enabled = true;
         _uiDocument.visualTreeAsset = _gameOverUI;
     }
+
+    private void AddPlayer(ClickEvent clickEvent) {
+        TextField playerTextField = new TextField("UserName" + _playerNameContainer.childCount + 1);
+        playerTextField.AddToClassList("playerNameField");
+        playerTextField.label = "Player" + (_playerNameContainer.childCount + 1) + ":";
+        _playerNameContainer.Add(playerTextField);
+        if (_playerNameContainer.childCount == 4) {
+            _addPlayerButton.visible = false;
+        }
+    }
     
     /// <summary>
     /// Activates the capturing for the key configuration for a player
     /// </summary>
     /// <param name="clickEvent"></param>
-
     private void ActivateCapturing(ClickEvent clickEvent) {
         VisualElement target = (Button) clickEvent.target;
         playerCapturing = target.name[6] - '0';
@@ -87,8 +103,8 @@ public class UIControl : MonoBehaviour
     }
 
     private void ConfigurationScreen() {
- // Configure the button that starts the game
-         root = _uiDocument.rootVisualElement;
+        // Configure the button that starts the game
+        root = _uiDocument.rootVisualElement;
          
          
          
@@ -96,10 +112,13 @@ public class UIControl : MonoBehaviour
         _playButton.RegisterCallback<ClickEvent>(StartGame);
         
         // For testing purposes we always start with 2 players
-        PlayerInfo player1Info = new PlayerInfo();
-        PlayerInfo player2Info = new PlayerInfo();
-        players.Add(player1Info);
-        players.Add(player2Info);
+        for (int i = 0; i <= _playerNameContainer.childCount; i++) {
+            PlayerInfo playerInfo = new PlayerInfo();
+            TextField playerNameTextfield = _playerNameContainer.Q<TextField>("UserName" + (i + 1));
+            playerInfo.playerName = playerNameTextfield.value;
+            players.Add(playerInfo);
+            Debug.Log(playerInfo.playerName = playerNameTextfield.value);
+        }
 
         // Configure the two players by searching the belonging button and labels in the UI root
         for (int i = 0; i < players.Count; i++) {
