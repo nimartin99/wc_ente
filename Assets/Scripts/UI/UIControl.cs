@@ -62,7 +62,8 @@ public class UIControl : MonoBehaviour
     }
 
     private void AddPlayer(ClickEvent clickEvent) {
-        TextField playerTextField = new TextField("UserName" + _playerNameContainer.childCount + 1);
+        TextField playerTextField = new TextField();
+        playerTextField.name = "UserName" + (_playerNameContainer.childCount + 1);
         playerTextField.AddToClassList("playerNameField");
         playerTextField.label = "Player" + (_playerNameContainer.childCount + 1) + ":";
         _playerNameContainer.Add(playerTextField);
@@ -97,7 +98,7 @@ public class UIControl : MonoBehaviour
         GameInitializer.Instance.StartGame(this);
     }
 
-        private void StartMenu(ClickEvent clickEvent) {
+    private void StartMenu(ClickEvent clickEvent) {
         _uiDocument.visualTreeAsset = _keyConfiguration;
         ConfigurationScreen();
     }
@@ -112,7 +113,7 @@ public class UIControl : MonoBehaviour
         _playButton.RegisterCallback<ClickEvent>(StartGame);
         
         // For testing purposes we always start with 2 players
-        for (int i = 0; i <= _playerNameContainer.childCount; i++) {
+        for (int i = 0; i < _playerNameContainer.childCount; i++) {
             PlayerInfo playerInfo = new PlayerInfo();
             TextField playerNameTextfield = _playerNameContainer.Q<TextField>("UserName" + (i + 1));
             playerInfo.playerName = playerNameTextfield.value;
@@ -120,9 +121,18 @@ public class UIControl : MonoBehaviour
             Debug.Log(playerInfo.playerName = playerNameTextfield.value);
         }
 
-        // Configure the two players by searching the belonging button and labels in the UI root
+        for (int i = 0; i < 4; i++) {
+            VisualElement playerKeyRow = root.Q<VisualElement>("player" + (i + 1) + "KeyRow");
+            playerKeyRow.style.display = DisplayStyle.None;
+        }
+
+        // Configure the players by searching the belonging button and labels in the UI root
         for (int i = 0; i < players.Count; i++) {
-            players[i].activateButton = root.Q<Button>("player" + (i + 1) + "ActivateButton");
+            VisualElement playerKeyRow = root.Q<VisualElement>("player" + (i + 1) + "KeyRow");
+            playerKeyRow.style.display = DisplayStyle.Flex;
+            Button activatorButton = root.Q<Button>("player" + (i + 1) + "ActivateButton");
+            activatorButton.text = players[i].playerName;
+            players[i].activateButton = activatorButton;
             
             players[i].playerUpLabel = root.Q<Label>("player" + (i + 1) + "UpLabel");
             players[i].playerLeftLabel = root.Q<Label>("player" + (i + 1) + "LeftLabel");

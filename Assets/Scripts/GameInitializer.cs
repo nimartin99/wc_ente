@@ -28,8 +28,10 @@ public class GameInitializer : MonoBehaviour {
     // Standard keycodes for first two players
     private KeyCode[,] standardCodes =
     {
-        { KeyCode.W,KeyCode.A,KeyCode.S,KeyCode.D},
-        { KeyCode.UpArrow,KeyCode.LeftArrow,KeyCode.DownArrow,KeyCode.RightArrow}
+        { KeyCode.W,KeyCode.A,KeyCode.S,KeyCode.D },
+        { KeyCode.Z,KeyCode.G,KeyCode.H,KeyCode.J },
+        { KeyCode.UpArrow,KeyCode.LeftArrow,KeyCode.DownArrow,KeyCode.RightArrow },
+        { KeyCode.UpArrow,KeyCode.LeftArrow,KeyCode.DownArrow,KeyCode.RightArrow }
     };
     
     private void Awake() {
