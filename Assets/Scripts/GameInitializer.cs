@@ -58,6 +58,7 @@ public class GameInitializer : MonoBehaviour {
         SpawnLevelPrefabs();
         SpawnPlayers(uiControl);
         ObstacleSpawner.Instance.spawnObstacles = true;
+        Light.Instance.spawnLight = true;
         gameRunning = true;
     }
     
