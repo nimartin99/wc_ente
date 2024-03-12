@@ -31,11 +31,12 @@ public class DuckCustomizer : MonoBehaviour
     {
         Destroy(hat);
         hatCounter++;
-        hat = Instantiate(possibleHats[hatCounter],transform.position,transform.rotation,this.transform);
         if (hatCounter >= possibleHats.Length)
         {
             hatCounter = 0;
         }
+        hat = Instantiate(possibleHats[hatCounter],transform.position,transform.rotation,this.transform);
+        
     }
 
 
