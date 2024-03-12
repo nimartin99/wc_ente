@@ -12,7 +12,7 @@ public class DuckCustomizer : MonoBehaviour
 
     public GameObject[] possibleHats;
 
-    private int hatCounter = 0;
+    public int hatCounter = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +30,8 @@ public class DuckCustomizer : MonoBehaviour
     public void changeHat()
     {
         Destroy(hat);
-        hat = Instantiate(possibleHats[hatCounter],transform.position,transform.rotation,this.transform);
         hatCounter++;
+        hat = Instantiate(possibleHats[hatCounter],transform.position,transform.rotation,this.transform);
         if (hatCounter >= possibleHats.Length)
         {
             hatCounter = 0;

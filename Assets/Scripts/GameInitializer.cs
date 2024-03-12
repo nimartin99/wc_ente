@@ -78,6 +78,7 @@ public class GameInitializer : MonoBehaviour {
 
             DuckControls playerScript = playerAnchor.GetComponent<DuckControls>();
             playerScript.SetColor(possibleColors[i]);
+            playerScript.SetHat(uiControl.players[i].customizer.hatCounter);
             currentPlayers.Add(playerAnchor);
             
      // Set keycodes for players

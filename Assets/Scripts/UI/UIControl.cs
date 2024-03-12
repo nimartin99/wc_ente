@@ -185,6 +185,21 @@ public class UIControl : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            for (int i = 0; i < players.Count; i++) {
+            
+                //duck Visualization
+                players[i].duckDisplay = root.Q<VisualElement>("player" + (i + 1) + "DuckDisplay");
+                RenderTexture renderTexture = players[i].customizer.renderTexture;
+                Texture2D cameraTexture = new Texture2D(renderTexture.width,renderTexture.height,DefaultFormat.LDR,1,TextureCreationFlags.None);
+                Graphics.CopyTexture(renderTexture, cameraTexture);
+                players[i].duckDisplay.style.backgroundImage = cameraTexture;
+            }
+        }
+       
     }
+    
+    
 }
 
