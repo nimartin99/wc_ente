@@ -16,8 +16,7 @@ public class DuckCustomizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(hat);
-        hat = Instantiate(possibleHats[hatCounter],transform.position,transform.rotation,this.transform);
+        changeHat();
         renderTexture = new RenderTexture(size, size, 16);
         camera.targetTexture = renderTexture;
     }
