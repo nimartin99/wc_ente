@@ -58,7 +58,7 @@ public class DuckControls : MonoBehaviour
 
     void Update() {
         //_isGrounded = Physics.Raycast(transform.position, transform.position - anchor.position, 0.1f, groundLayer);
-        _isGrounded = (duck.transform.localPosition.y <= -radius) && yMovement <= 0;
+        _isGrounded = (duck.transform.localPosition.y <= -radius + 0.01f) && yMovement <= 0;
         //Debug.DrawLine(transform.position,  anchor.position, Color.blue);
         if (Input.GetKey(keyLeft))
         {
