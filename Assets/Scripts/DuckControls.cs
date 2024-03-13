@@ -96,7 +96,7 @@ public class DuckControls : MonoBehaviour
         if (!_isGrounded)
         {
             //reduce zMovement by gravity
-            yMovement -= gravityFactor;
+            yMovement -= gravityFactor * Time.deltaTime;
         }else
         {
             yMovement = 0;

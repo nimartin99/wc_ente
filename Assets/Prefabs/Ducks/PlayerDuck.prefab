@@ -70,7 +70,7 @@ MonoBehaviour:
   duck: {fileID: 5219072569351555039}
   anchor: {fileID: 7981358162294918825}
   bounceForce: 7
-  gravityFactor: 0.07
+  gravityFactor: 1
   useDrag: 0
   dragFactor: 0
   drag_tolerance: 0
