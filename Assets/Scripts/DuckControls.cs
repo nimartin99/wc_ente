@@ -16,6 +16,8 @@ public class DuckControls : MonoBehaviour
     [SerializeField] private float jumpForce = 2f;
     [SerializeField] private LayerMask groundLayer;
     public bool _isGrounded;
+    public List<GameObject> possibleHats;
+    public GameObject playerModel;
 
    
     //the radius of the pipe for grounding
@@ -78,14 +80,14 @@ public class DuckControls : MonoBehaviour
         if (Input.GetKey(keyDuck)) {
             duckModel.transform.localScale = new Vector3(
                 duckModel.transform.localScale.x, 
-                duckModel.transform.localScale.y, 
-                0.04f
+                .4f,
+                duckModel.transform.localScale.z 
             );
         } else {
             duckModel.transform.localScale = new Vector3(
-                duckModel.transform.localScale.x, 
-                duckModel.transform.localScale.y, 
-                0.1f
+                duckModel.transform.localScale.x,
+                1,
+                duckModel.transform.localScale.z 
             );
         }
 
@@ -158,6 +160,13 @@ public class DuckControls : MonoBehaviour
 
     public void SetColor(Color color)
     {
-        duckModel.GetComponent<MeshRenderer>().material.SetColor("_Color",color);
+        //duckModel.GetComponent<MeshRenderer>().material.SetColor("_Color",color);
+    }
+
+    public void SetHat(int id)
+    {
+        int hatID = id >= possibleHats.Count ? id - possibleHats.Count : id; 
+        Instantiate(possibleHats[hatID], playerModel.transform);
+
     }
 }
