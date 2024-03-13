@@ -31,3 +31,35 @@
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
 }
+
+.playerNameField {
+    justify-content: flex-end;
+    align-items: center;
+    width: 274px;
+    height: 51px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-left-color: rgb(55, 51, 51);
+    border-right-color: rgb(55, 51, 51);
+    border-top-color: rgb(55, 51, 51);
+    border-bottom-color: rgb(55, 51, 51);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-style: bold;
+    color: rgb(0, 0, 0);
+    background-image: url('project://database/Assets/Materials/brick_wall/textures/brick_wall_006_nor_gl_4k.exr?fileID=2800000&guid=22c2eae10343eff489f960703815d1cf&type=3#brick_wall_006_nor_gl_4k');
+    -unity-background-image-tint-color: rgb(239, 255, 0);
+    background-color: rgba(255, 229, 229, 0);
+}

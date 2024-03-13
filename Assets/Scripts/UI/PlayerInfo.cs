@@ -1,11 +1,17 @@
+using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 public class PlayerInfo {
+    public String playerName;
     public Button activateButton;
     public Label playerUpLabel;
     public Label playerLeftLabel;
     public Label playerDuckLabel;
     public Label playerRightLabel;
+    public VisualElement duckDisplay;
+    public Button changeHatButton;
+    public DuckCustomizer customizer;
     
     public KeyCode playerUp;
     public KeyCode playerLeft;

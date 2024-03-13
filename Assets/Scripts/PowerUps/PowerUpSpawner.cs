@@ -35,7 +35,7 @@ public class PowerUpSpawner : MonoBehaviour
     void SpawnPowerUp() {
 
         int spawnIndex = Random.Range(0, powerUpPrefabs.Length);
-
+        
         // ^1 means last index
         Transform lastPipe = PipeGenerator.Instance.currentPipes[^1];
         float randomPipeProgress = Random.Range(0.1f, 0.9f);
@@ -43,7 +43,7 @@ public class PowerUpSpawner : MonoBehaviour
         
         // Adjust the rotation angle of the object based on the next step in the Bezier curve
         Vector3 nextPosition = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress+0.01f);
-
+        
         Vector3 direction = (nextPosition - spawnPoint).normalized;
         
         int rotationInPipe = Random.Range(0, 359);
