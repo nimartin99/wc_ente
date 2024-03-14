@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class UIControl : MonoBehaviour
 {
@@ -50,6 +51,12 @@ public class UIControl : MonoBehaviour
          _addPlayerButton = root.Q<Button>("AddPlayerButton");
          _addPlayerButton.RegisterCallback<ClickEvent>(AddPlayer);  
          
+         // Fill the names with random funny ones
+         for (int i = 0; i < _playerNameContainer.childCount; i++) {
+             TextField playerNameTextfield = _playerNameContainer.Q<TextField>("UserName" + (i + 1));
+             playerNameTextfield.value = PlayerInfo.duckNames[Random.Range(0, PlayerInfo.duckNames.Count)];
+         }
+         
          // Configure the button that starts the menu
         _BegingButton = root.Q<Button>("BegingButton");
         _BegingButton.RegisterCallback<ClickEvent>(StartMenu);   
@@ -66,6 +73,7 @@ public class UIControl : MonoBehaviour
         playerTextField.name = "UserName" + (_playerNameContainer.childCount + 1);
         playerTextField.AddToClassList("playerNameField");
         playerTextField.label = "Player" + (_playerNameContainer.childCount + 1) + ":";
+        playerTextField.value = PlayerInfo.duckNames[Random.Range(0, PlayerInfo.duckNames.Count)];
         _playerNameContainer.Add(playerTextField);
         if (_playerNameContainer.childCount == 4) {
             _addPlayerButton.visible = false;
@@ -86,7 +94,8 @@ public class UIControl : MonoBehaviour
         VisualElement target = (Button) clickEvent.target;
         int playerId = target.name[6]- '0';
         playerId -= 1;
-        customizers[playerId].changeHat();
+        int hatIncrease = target.name[16] == 'R' ? 1 : -1;
+        customizers[playerId].ChangeHat(hatIncrease);
         RenderTexture renderTexture = players[playerId].customizer.renderTexture;
         Texture2D cameraTexture = new Texture2D(renderTexture.width,renderTexture.height,DefaultFormat.LDR,1,TextureCreationFlags.None);
         Graphics.CopyTexture(renderTexture, cameraTexture);
@@ -116,7 +125,11 @@ public class UIControl : MonoBehaviour
         for (int i = 0; i < _playerNameContainer.childCount; i++) {
             PlayerInfo playerInfo = new PlayerInfo();
             TextField playerNameTextfield = _playerNameContainer.Q<TextField>("UserName" + (i + 1));
-            playerInfo.playerName = playerNameTextfield.value;
+            if (playerNameTextfield.value == "") {
+                playerInfo.playerName = PlayerInfo.duckNames[Random.Range(0, PlayerInfo.duckNames.Count)];
+            } else {
+                playerInfo.playerName = playerNameTextfield.value;
+            }
             players.Add(playerInfo);
             Debug.Log(playerInfo.playerName = playerNameTextfield.value);
         }
@@ -143,12 +156,14 @@ public class UIControl : MonoBehaviour
 
             players[i].customizer = customizers[i];
             players[i].duckDisplay = root.Q<VisualElement>("player" + (i + 1) + "DuckDisplay");
-            players[i].changeHatButton = root.Q<Button>("player" + (i + 1) + "ChangeHat");
+            players[i].changeHatButtonLeft = root.Q<Button>("player" + (i + 1) + "ChangeHatLeft");
+            players[i].changeHatButtonRight = root.Q<Button>("player" + (i + 1) + "ChangeHatRight");
             RenderTexture renderTexture = players[i].customizer.renderTexture;
             Texture2D cameraTexture = new Texture2D(renderTexture.width,renderTexture.height,DefaultFormat.LDR,1,TextureCreationFlags.None);
             Graphics.CopyTexture(renderTexture, cameraTexture);
             players[i].duckDisplay.style.backgroundImage = cameraTexture;
-            players[i].changeHatButton.RegisterCallback<ClickEvent>(ChangeHat);
+            players[i].changeHatButtonLeft.RegisterCallback<ClickEvent>(ChangeHat);
+            players[i].changeHatButtonRight.RegisterCallback<ClickEvent>(ChangeHat);
             players[i].activateButton.RegisterCallback<ClickEvent>(ActivateCapturing);
         }
     }

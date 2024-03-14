@@ -16,7 +16,7 @@ public class DuckCustomizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        changeHat();
+        ChangeHat(Random.Range(0, possibleHats.Length));
         renderTexture = new RenderTexture(size, size, 16);
         camera.targetTexture = renderTexture;
     }
@@ -27,13 +27,15 @@ public class DuckCustomizer : MonoBehaviour
         
     }
 
-    public void changeHat()
+    public void ChangeHat(int hatIncrease)
     {
         Destroy(hat);
-        hatCounter++;
+        hatCounter += hatIncrease;
         if (hatCounter >= possibleHats.Length)
         {
             hatCounter = 0;
+        } else if (hatCounter < 0) {
+            hatCounter = possibleHats.Length - 1;
         }
         hat = Instantiate(possibleHats[hatCounter],transform.position,transform.rotation,this.transform);
         

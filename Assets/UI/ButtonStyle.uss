@@ -35,7 +35,7 @@
 .playerNameField {
     justify-content: flex-end;
     align-items: center;
-    width: 274px;
+    width: 75%;
     height: 51px;
     border-top-width: 5px;
     border-right-width: 5px;
@@ -62,4 +62,43 @@
     background-image: url('project://database/Assets/Materials/brick_wall/textures/brick_wall_006_nor_gl_4k.exr?fileID=2800000&guid=22c2eae10343eff489f960703815d1cf&type=3#brick_wall_006_nor_gl_4k');
     -unity-background-image-tint-color: rgb(239, 255, 0);
     background-color: rgba(255, 229, 229, 0);
+}
+
+.playerControlLabel {
+    color: rgb(253, 243, 0);
+    -unity-font-style: bold;
+    background-image: url('project://database/Assets/Materials/brick_wall/textures/brick_wall_006_nor_gl_4k.exr?fileID=2800000&guid=22c2eae10343eff489f960703815d1cf&type=3#brick_wall_006_nor_gl_4k');
+    -unity-background-image-tint-color: rgb(0, 0, 0);
+    width: 10%;
+    margin-left: 1.25%;
+    margin-right: 1.25%;
+    -unity-text-align: upper-center;
+}
+
+.changeHatButtonRight {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url('project://database/Assets/UI/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&guid=1dcdceb880c70a4459fefc4cbfd5f5b8&type=3#arrow-right@2x');
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    width: 20%;
+    height: 25%;
+}
+
+.changeHatButtonLeft {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    width: 20%;
+    height: 25%;
 }

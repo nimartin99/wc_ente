@@ -8,7 +8,7 @@ public class GameInitializer : MonoBehaviour {
     public List<Transform> currentPlayers = new List<Transform>();
     public static GameInitializer Instance { get; private set; }
     [SerializeField] private Transform playerPrefab;
-    [SerializeField] private Transform powerUpPrefab;
+    [SerializeField] private Transform powerUpSpawner;
     [SerializeField] private Transform pipePrefab;
     [SerializeField] private Transform playerAnchorPrefab;
     private Transform pipeSpawner;
@@ -59,6 +59,7 @@ public class GameInitializer : MonoBehaviour {
     public void StartGame(UIControl uiControl) {
         SpawnLevelPrefabs();
         SpawnPlayers(uiControl);
+        powerUpSpawner.gameObject.SetActive(true);
         ObstacleSpawner.Instance.spawnObstacles = true;
         Light.Instance.spawnLight = true;
         gameRunning = true;
