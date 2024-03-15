@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8229803485323422955}
   - component: {fileID: 6049067297289930673}
   - component: {fileID: 2409972605494665867}
+  - component: {fileID: 5736834123350379512}
+  - component: {fileID: 5259765668516881675}
   m_Layer: 0
   m_Name: TamponObstacle
   m_TagString: Obstacle
@@ -83,6 +85,30 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 9191827185501454332, guid: 9a5136c739507334980a097fc130c32f, type: 3}
+--- !u!114 &5736834123350379512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7224333282819870613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5779c573c21f44aa7c727f689e8f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5259765668516881675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7224333282819870613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59487404534b284fac64ff01cb67747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5497251973186531162
 PrefabInstance:
   m_ObjectHideFlags: 0
