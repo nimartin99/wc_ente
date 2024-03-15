@@ -139,6 +139,8 @@ GameObject:
   - component: {fileID: 5258554592272065493}
   - component: {fileID: 8587450361795559438}
   - component: {fileID: 927837543237919638}
+  - component: {fileID: 366209682162573907}
+  - component: {fileID: 3398135750007105102}
   m_Layer: 0
   m_Name: Pipe_Curve
   m_TagString: Obstacle
@@ -206,8 +208,52 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7110687912401196161, guid: 5ea4380997fae6340afff5bcdd335b6b, type: 3}
+--- !u!136 &366209682162573907
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042179113966118703}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.0116659
+  m_Height: 4.9392776
+  m_Direction: 1
+  m_Center: {x: 8.998211e-17, y: 0.696657, z: 0.016164482}
+--- !u!65 &3398135750007105102
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042179113966118703}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7872002, y: 1.8996882, z: 4.080996}
+  m_Center: {x: 0.07031306, y: 2.7655337, z: 2.9547668}
