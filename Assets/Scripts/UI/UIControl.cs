@@ -104,7 +104,7 @@ public class UIControl : MonoBehaviour
 
     private void StartGame(ClickEvent clickEvent) {
         _uiDocument.enabled = false;
-        GameInitializer.Instance.StartGame(this);
+        GameInitializer.Instance.StartIntro();
     }
 
     private void StartMenu(ClickEvent clickEvent) {

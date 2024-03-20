@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 
 public class GameInitializer : MonoBehaviour {
@@ -12,6 +13,9 @@ public class GameInitializer : MonoBehaviour {
     [SerializeField] private Transform pipePrefab;
     [SerializeField] private Transform playerAnchorPrefab;
     private Transform pipeSpawner;
+    
+    // Intro
+    [SerializeField] private PlayableDirector director;
 
     private Color[] possibleColors =
     {
@@ -64,6 +68,16 @@ public class GameInitializer : MonoBehaviour {
         Light.Instance.spawnLight = true;
         gameRunning = true;
     }
+
+    public void StartIntro() {
+        director.Play();
+    }
+
+    public void EndIntro() {
+        Debug.Log("EndIntro");
+        director.Stop();
+        StartGame(UIControl.Instance);
+    }
     
     private void SpawnLevelPrefabs() {
         pipeSpawner = Instantiate(pipePrefab, new Vector3(0, 0, 0), Quaternion.Euler(90, 0, 0));
@@ -91,9 +105,10 @@ public class GameInitializer : MonoBehaviour {
         }
         
         // Set the Camera as child of the playerAnchorParent
-        Camera.main.transform.SetParent(playerAnchorParent);
-        Camera.main.transform.position = new Vector3(playerAnchorParent.position.x, playerAnchorParent.position.y,
-            playerAnchorParent.position.z + 1f);
+        // Camera.main.transform.SetParent(playerAnchorParent);
+        // Camera.main.transform.position = new Vector3(playerAnchorParent.position.x, playerAnchorParent.position.y,
+        //     playerAnchorParent.position.z + 1f);
+        
         PipeGenerator pipeGenerator = pipeSpawner.GetComponent<PipeGenerator>();
         pipeGenerator.objectToMove = playerAnchorParent.gameObject;
     }
