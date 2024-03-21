@@ -22,11 +22,13 @@ public class PowerUpShield : PowerUp
         PowerUpTarget.sprite = ShieldSprite;
 
         DamageController damageController = hit.GetComponent<DamageController>();
+        DuckControls duckControls = hit.GetComponentInParent<DuckControls>();
         if (damageController != null)
         {
             damageController.toogleShield(true);
             StartCoroutine(ShieldDuration(hit, shieldDuration));
             base.PowerUpCollected(hit);
+            duckControls.isShieldActive = true;
         }
     }
 
@@ -35,9 +37,11 @@ public class PowerUpShield : PowerUp
         yield return new WaitForSeconds(duration);
 
         DamageController damageController = hit.GetComponent<DamageController>();
+        DuckControls duckControls = hit.GetComponentInParent<DuckControls>();
         if (damageController != null)
         {
             damageController.toogleShield(false);
+            duckControls.isShieldActive = false;
 
         }
 

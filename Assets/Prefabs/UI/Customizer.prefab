@@ -62,6 +62,7 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: a966468778578f64d97b639a3bc45a94, type: 3}
   - {fileID: 919132149155446097, guid: 92cca3426d274b74bb1eb37c40d1ae41, type: 3}
   - {fileID: 919132149155446097, guid: 0a057a84a630881409be34d966c2e9b9, type: 3}
+  hatCounter: 0
 --- !u!1 &2268361095255590645
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +550,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 111
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: dd6ed9d2f62fe0f45b5ef60be85bda4f, type: 2}
   m_TargetDisplay: 0

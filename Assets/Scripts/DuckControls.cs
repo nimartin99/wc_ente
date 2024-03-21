@@ -52,6 +52,12 @@ public class DuckControls : MonoBehaviour
     public float totalMovement = 0;
     //the friction the duck slows down with after being pushed
     public float friction = 1;
+
+    [Header("PowerUps Track")]
+    public bool isSpeedActive;
+    public bool isShieldActive;
+    public bool isScaleUpActive;
+    public bool isScaleDownActive;
     private void Start() {
         rb = GetComponent<Rigidbody>();
     }

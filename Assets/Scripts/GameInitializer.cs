@@ -6,12 +6,18 @@ using UnityEngine;
 public class GameInitializer : MonoBehaviour {
     public bool gameRunning;
     public List<Transform> currentPlayers = new List<Transform>();
+
+    public List<APlayer> activePlayers = new List<APlayer>();
+
     public static GameInitializer Instance { get; private set; }
     [SerializeField] private Transform playerPrefab;
     [SerializeField] private Transform powerUpPrefab;
     [SerializeField] private Transform pipePrefab;
     [SerializeField] private Transform playerAnchorPrefab;
+    public DuckCustomizer[] allPlayercustomizer;
     private Transform pipeSpawner;
+    public GameObject WaveSet;
+    public GameObject WaveSet2;
 
     private Color[] possibleColors =
     {
@@ -45,7 +51,7 @@ public class GameInitializer : MonoBehaviour {
 
     private void Update() {
         // End the game
-        if (currentPlayers.Count == 1 && gameRunning) {
+        if (currentPlayers.Count <= 1 && gameRunning) {
             gameRunning = false;
             UIControl.Instance.EndGame();
         }
@@ -80,8 +86,16 @@ public class GameInitializer : MonoBehaviour {
             playerScript.SetColor(possibleColors[i]);
             playerScript.SetHat(uiControl.players[i].customizer.hatCounter);
             currentPlayers.Add(playerAnchor);
-            
-     // Set keycodes for players
+
+
+            APlayer playerReference = new APlayer();
+            playerReference.isActive = true;
+            playerReference.myIndex = i;
+            playerReference.player = playerAnchor;
+
+            GameInitializer.Instance.activePlayers.Add(playerReference);
+
+            // Set keycodes for players
             playerScript.keyUp = uiControl.players[i].playerUp != KeyCode.None ? uiControl.players[i].playerUp: standardCodes[i,0];
             playerScript.keyLeft = uiControl.players[i].playerLeft != KeyCode.None ? uiControl.players[i].playerLeft: standardCodes[i,1];
             playerScript.keyDuck = uiControl.players[i].playerDuck != KeyCode.None ? uiControl.players[i].playerDuck: standardCodes[i,2];
@@ -95,4 +109,16 @@ public class GameInitializer : MonoBehaviour {
         PipeGenerator pipeGenerator = pipeSpawner.GetComponent<PipeGenerator>();
         pipeGenerator.objectToMove = playerAnchorParent.gameObject;
     }
+}
+
+
+
+
+[System.Serializable]
+public class APlayer
+{
+    
+    public bool isActive;
+    public Transform player;
+    public int myIndex;
 }

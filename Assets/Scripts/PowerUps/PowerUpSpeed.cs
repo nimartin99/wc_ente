@@ -18,6 +18,7 @@ public class PowerUpSpeed : PowerUp {
             duckControls.horizontalSpeed *= speedFactor;
             duckControls.maxRotationSpeed *= speedFactor;
             base.PowerUpCollected(hit);
+            duckControls.isSpeedActive = true;
         }
     }
     
@@ -29,6 +30,7 @@ public class PowerUpSpeed : PowerUp {
             duckControls.horizontalSpeed /= speedFactor;
             duckControls.maxRotationSpeed /= speedFactor;
             base.PowerUpElapsed(hit, duration);
+            duckControls.isSpeedActive = false;
         }
     } 
 }

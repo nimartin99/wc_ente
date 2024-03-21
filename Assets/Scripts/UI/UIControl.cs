@@ -59,6 +59,7 @@ public class UIControl : MonoBehaviour
         Debug.Log("Game is over");
         _uiDocument.enabled = true;
         _uiDocument.visualTreeAsset = _gameOverUI;
+        //root.Q<VisualElement>("GameOverUI").Q<Label>("GameOverText").text = "You Won";
     }
 
     private void AddPlayer(ClickEvent clickEvent) {
@@ -119,6 +120,9 @@ public class UIControl : MonoBehaviour
             playerInfo.playerName = playerNameTextfield.value;
             players.Add(playerInfo);
             Debug.Log(playerInfo.playerName = playerNameTextfield.value);
+
+            
+            
         }
 
         for (int i = 0; i < 4; i++) {
