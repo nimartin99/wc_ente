@@ -115,13 +115,9 @@ public class UIControl : MonoBehaviour
     private void ConfigurationScreen() {
         // Configure the button that starts the game
         root = _uiDocument.rootVisualElement;
-         
-         
-         
         _playButton = root.Q<Button>("playButton");
         _playButton.RegisterCallback<ClickEvent>(StartGame);
         
-        // For testing purposes we always start with 2 players
         for (int i = 0; i < _playerNameContainer.childCount; i++) {
             PlayerInfo playerInfo = new PlayerInfo();
             TextField playerNameTextfield = _playerNameContainer.Q<TextField>("UserName" + (i + 1));
@@ -136,13 +132,14 @@ public class UIControl : MonoBehaviour
 
         for (int i = 0; i < 4; i++) {
             VisualElement playerKeyRow = root.Q<VisualElement>("player" + (i + 1) + "KeyRow");
-            playerKeyRow.style.display = DisplayStyle.None;
+            playerKeyRow.visible = false;
+            customizers[i].gameObject.SetActive(false);
         }
 
         // Configure the players by searching the belonging button and labels in the UI root
         for (int i = 0; i < players.Count; i++) {
             VisualElement playerKeyRow = root.Q<VisualElement>("player" + (i + 1) + "KeyRow");
-            playerKeyRow.style.display = DisplayStyle.Flex;
+            playerKeyRow.visible = true;
             Button activatorButton = root.Q<Button>("player" + (i + 1) + "ActivateButton");
             activatorButton.text = players[i].playerName;
             players[i].activateButton = activatorButton;
@@ -153,7 +150,7 @@ public class UIControl : MonoBehaviour
             players[i].playerRightLabel = root.Q<Label>("player" + (i + 1) + "RightLabel");
             
             //duck Visualization
-
+            customizers[i].gameObject.SetActive(true);
             players[i].customizer = customizers[i];
             players[i].duckDisplay = root.Q<VisualElement>("player" + (i + 1) + "DuckDisplay");
             players[i].changeHatButtonLeft = root.Q<Button>("player" + (i + 1) + "ChangeHatLeft");

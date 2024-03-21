@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: 
-  m_Time: 4.333333333333333
+  m_Time: 5.25
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: 4548ec30b47efba468f6362bb88e7042, type: 2}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 3.8833333333333306
+    m_Start: 4.216666666666667
     m_ClipIn: 0
     m_Asset: {fileID: 8592597302856867444}
     m_Duration: 4.633333333333333
@@ -166,7 +166,7 @@ MonoBehaviour:
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
     m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 3.8833333333333306
+    m_PreExtrapolationTime: 4.216666666666667
     m_DisplayName: DollyPathAnimation
   m_Markers:
     m_Objects: []
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 3.8833333333333306
+    m_Start: 4.283333333333333
     m_ClipIn: 0
     m_Asset: {fileID: -2228637399520699179}
     m_Duration: 0.5333333333333377
@@ -276,7 +276,7 @@ MonoBehaviour:
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
     m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 3.8833333333333306
+    m_PreExtrapolationTime: 4.283333333333333
     m_DisplayName: FollowTarget
   m_Markers:
     m_Objects: []
@@ -377,6 +377,7 @@ MonoBehaviour:
   - {fileID: 1187878947853423838}
   - {fileID: 1621828715780336378}
   - {fileID: 1581155232679714650}
+  - {fileID: 6744309609710437021}
   - {fileID: -3208218419201875086}
   m_FixedDuration: 0
   m_EditorSettings:
@@ -409,8 +410,8 @@ MonoBehaviour:
     m_Start: 3.2833333333333288
     m_ClipIn: 0
     m_Asset: {fileID: -8497590529348687912}
-    m_Duration: 0.3333333333333333
-    m_TimeScale: 1
+    m_Duration: 0.4761904761904763
+    m_TimeScale: 0.6999999999999998
     m_ParentTrack: {fileID: 1187878947853423838}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -471,15 +472,15 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 0.31666666666666643
+    m_PostExtrapolationTime: 0.3738095238095287
     m_PreExtrapolationTime: 3.2833333333333288
     m_DisplayName: DuckBathroomShock
   - m_Version: 1
-    m_Start: 3.9333333333333287
+    m_Start: 4.133333333333334
     m_ClipIn: 0
     m_Asset: {fileID: 3160732143658592928}
-    m_Duration: 0.35
-    m_TimeScale: 1
+    m_Duration: 1.1388888888888955
+    m_TimeScale: 0.6000000000000002
     m_ParentTrack: {fileID: 1187878947853423838}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -585,11 +586,11 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 3.2833333333333288
+    m_Start: 3.683333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 8415458635000285070}
-    m_Duration: 1
-    m_TimeScale: 1
+    m_Duration: 1.4285714285714288
+    m_TimeScale: 0.6999999999999998
     m_ParentTrack: {fileID: 1581155232679714650}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -651,7 +652,7 @@ MonoBehaviour:
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
     m_PostExtrapolationTime: Infinity
-    m_PreExtrapolationTime: 3.2833333333333288
+    m_PreExtrapolationTime: 3.683333333333333
     m_DisplayName: Duck3Bathroom
   m_Markers:
     m_Objects: []
@@ -698,8 +699,8 @@ MonoBehaviour:
     m_Start: 3.2833333333333288
     m_ClipIn: 0
     m_Asset: {fileID: -271620266641728160}
-    m_Duration: 1
-    m_TimeScale: 1
+    m_Duration: 1.4285714285714288
+    m_TimeScale: 0.6999999999999998
     m_ParentTrack: {fileID: 1621828715780336378}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
@@ -805,6 +806,28 @@ MonoBehaviour:
   m_Loop: 0
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!114 &4974600551157871119
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
+  m_Name: AnimationPlayableAsset
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 7400000, guid: 2614954f69c874a4f9bebc3a3641c2ed, type: 2}
+  m_Position: {x: 0.7577, y: -1.101738, z: -2.2148}
+  m_EulerAngles: {x: 270, y: 13.986163, z: 0}
+  m_UseTrackMatchFields: 1
+  m_MatchTargetFields: 63
+  m_RemoveStartOffset: 1
+  m_ApplyFootIK: 1
+  m_Loop: 0
+  m_Version: 1
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &5878745850568771444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -839,25 +862,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -965,25 +970,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1015,6 +1002,116 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: 0f2f0b92a7a719945b474c8292de8a6f
     defaultValue: {fileID: 0}
+--- !u!114 &6744309609710437021
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21dcc2386d650c4597f3633c75a1f98, type: 3}
+  m_Name: Animation Track (5)
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 3.1976190476190522
+    m_ClipIn: 0
+    m_Asset: {fileID: 4974600551157871119}
+    m_Duration: 1.619047619047619
+    m_TimeScale: 0.7
+    m_ParentTrack: {fileID: 6744309609710437021}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 1
+    m_PreExtrapolationMode: 1
+    m_PostExtrapolationTime: Infinity
+    m_PreExtrapolationTime: 3.1976190476190522
+    m_DisplayName: Duck4Bathroom
+  m_Markers:
+    m_Objects: []
+  m_InfiniteClipPreExtrapolation: 0
+  m_InfiniteClipPostExtrapolation: 0
+  m_InfiniteClipOffsetPosition: {x: 0, y: 0, z: 0}
+  m_InfiniteClipOffsetEulerAngles: {x: 0, y: 0, z: 0}
+  m_InfiniteClipTimeOffset: 0
+  m_InfiniteClipRemoveOffset: 0
+  m_InfiniteClipApplyFootIK: 1
+  mInfiniteClipLoop: 0
+  m_MatchTargetFields: 63
+  m_Position: {x: 0, y: 0, z: 0}
+  m_EulerAngles: {x: 0, y: 0, z: 0}
+  m_AvatarMask: {fileID: 0}
+  m_ApplyAvatarMask: 1
+  m_TrackOffset: 0
+  m_InfiniteClip: {fileID: 0}
+  m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
+  m_ApplyOffsets: 0
 --- !u!114 &8415458635000285070
 MonoBehaviour:
   m_ObjectHideFlags: 1
