@@ -23,6 +23,7 @@ public class ObstacleSpawner : MonoBehaviour
     private float lastSpawn = 0;
     // the chosen spawn delay for the current obstacle
     private float spawnDelay = 0;
+    private float lastrandomPipeProgress = 0;
     
     private void Awake() {
         // Singleton pattern
@@ -47,6 +48,11 @@ public class ObstacleSpawner : MonoBehaviour
         // ^1 means last index
         Transform lastPipe = PipeGenerator.Instance.currentPipes[^1];
         float randomPipeProgress = Random.Range(0.1f, 0.9f);
+        if(lastrandomPipeProgress == randomPipeProgress)
+        {
+            randomPipeProgress += 0.1f;
+        }
+        lastrandomPipeProgress = randomPipeProgress;
         Vector3 spawnPoint = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress);
         
         // Adjust the rotation angle of the object based on the next step in the Bezier curve
@@ -62,12 +68,12 @@ public class ObstacleSpawner : MonoBehaviour
         }
         
 
-        if(newObstacle.GetComponent<Rigidbody>() != null )
-        {
+        /*if(newObstacle.GetComponent<Rigidbody>() != null )
+       {
             newObstacle.GetComponent<Rigidbody>().AddExplosionForce(exploForce, nextPosition, 1.0f);
             //newObstacle.GetComponent<Rigidbody>().AddForce(0,0,5, ForceMode.Impulse);
         }
-
+        */
 
         currentObstacles.Add(newObstacle.transform);
         
