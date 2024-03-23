@@ -356,6 +356,14 @@ PrefabInstance:
       propertyPath: obstaclePrefabs.Array.data[8]
       value: 
       objectReference: {fileID: 1826686847572834248, guid: 6da04d434040abe4e8ebc867f57f8c21, type: 3}
+    - target: {fileID: 963962951457105610, guid: ba6d3a1004b07c646a4d8f873dfb6259, type: 3}
+      propertyPath: activateForce.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 963962951457105610, guid: ba6d3a1004b07c646a4d8f873dfb6259, type: 3}
+      propertyPath: activateForce.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6709557693745723126, guid: ba6d3a1004b07c646a4d8f873dfb6259, type: 3}
       propertyPath: m_Name
       value: ObstacleSpawner

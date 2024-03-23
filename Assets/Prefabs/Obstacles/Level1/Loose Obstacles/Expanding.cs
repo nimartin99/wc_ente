@@ -20,7 +20,7 @@ public class Expanding : MonoBehaviour
         if (expand && start > delay)
         {
             sizeup = Time.deltaTime * 0.1f;
-            transform.localScale += new Vector3(sizeup, sizeup, 0);
+            transform.localScale += new Vector3(sizeup, sizeup, sizeup);
             if(transform.localScale.x > 0.18f)
             {
                 expand = false;

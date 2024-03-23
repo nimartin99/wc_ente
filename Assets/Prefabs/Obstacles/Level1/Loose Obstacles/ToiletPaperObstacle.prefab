@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2872209264306622428}
   - component: {fileID: 7992917503786013113}
   - component: {fileID: 8279199208004711653}
+  - component: {fileID: -3291601035461193346}
   m_Layer: 0
   m_Name: ToiletPaperObstacle
   m_TagString: Obstacle
@@ -43,7 +44,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5347429931828257732}
   serializedVersion: 4
-  m_Mass: 0.1
+  m_Mass: 0.01
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -96,6 +97,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59487404534b284fac64ff01cb67747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3291601035461193346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5347429931828257732}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb19445c18210b46b228fbd188ad302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0
 --- !u!1001 &5177715381427366934
 PrefabInstance:
   m_ObjectHideFlags: 0

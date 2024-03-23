@@ -50,7 +50,11 @@ public class ObstacleSpawner : MonoBehaviour
         float randomPipeProgress = Random.Range(0.1f, 0.9f);
         if(lastrandomPipeProgress == randomPipeProgress)
         {
-            randomPipeProgress += 0.1f;
+            randomPipeProgress += 0.3f;
+            if(randomPipeProgress> 0.9f)
+            {
+                randomPipeProgress = 0.9f;
+            }
         }
         lastrandomPipeProgress = randomPipeProgress;
         Vector3 spawnPoint = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress);
@@ -65,15 +69,14 @@ public class ObstacleSpawner : MonoBehaviour
         if (obstaclePrefabs[spawnIndex].name != "TamponObstacle")
         {
             newObstacle.transform.Rotate(new Vector3(0, 0, 1), Random.Range(0.0f, 360.0f), Space.Self);
+
+            //add force to objects -> got kicked out 
+            /*if(newObstacle.GetComponent<Rigidbody>() != null) 
+            {
+                newObstacle.GetComponent<ForceApplication>().AlterDelay(randomPipeProgress,nextPosition);
+            }*/
         }
         
-
-        /*if(newObstacle.GetComponent<Rigidbody>() != null )
-       {
-            newObstacle.GetComponent<Rigidbody>().AddExplosionForce(exploForce, nextPosition, 1.0f);
-            //newObstacle.GetComponent<Rigidbody>().AddForce(0,0,5, ForceMode.Impulse);
-        }
-        */
 
         currentObstacles.Add(newObstacle.transform);
         
