@@ -79,16 +79,16 @@ public class DuckControls : MonoBehaviour
             _isGrounded = false;
         }
         if (Input.GetKey(keyDuck)) {
-            duckModel.transform.localScale = new Vector3(
-                duckModel.transform.localScale.x, 
+            transform.GetChild(0).localScale = new Vector3(
+                transform.GetChild(0).transform.localScale.x, 
                 .4f,
-                duckModel.transform.localScale.z 
+                transform.GetChild(0).transform.localScale.z 
             );
         } else {
-            duckModel.transform.localScale = new Vector3(
-                duckModel.transform.localScale.x,
+            transform.GetChild(0).transform.localScale = new Vector3(
+                transform.GetChild(0).transform.localScale.x,
                 1,
-                duckModel.transform.localScale.z 
+                transform.GetChild(0).transform.localScale.z 
             );
         }
 
