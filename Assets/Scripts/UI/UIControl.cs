@@ -62,10 +62,13 @@ public class UIControl : MonoBehaviour
         _BegingButton.RegisterCallback<ClickEvent>(StartMenu);   
     }
     
-    public void EndGame() {
+    public void EndGame(PlayerInfo winningPlayer) {
         Debug.Log("Game is over");
         _uiDocument.enabled = true;
         _uiDocument.visualTreeAsset = _gameOverUI;
+        root = _uiDocument.rootVisualElement;
+        Label winningPlayerLabel = root.Q<Label>("winningPlayerLabel");
+        winningPlayerLabel.text = "GAME OVER!\n" + winningPlayer.playerName + " won!";
     }
 
     private void AddPlayer(ClickEvent clickEvent) {

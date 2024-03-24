@@ -53,7 +53,7 @@ public class GameInitializer : MonoBehaviour {
         // End the game
         if (currentPlayers.Count == 1 && gameRunning) {
             gameRunning = false;
-            UIControl.Instance.EndGame();
+            UIControl.Instance.EndGame(currentPlayers[0].GetComponent<DuckControls>().playerInfo);
         }
     }
     
@@ -92,7 +92,7 @@ public class GameInitializer : MonoBehaviour {
 
     private void SpawnPlayers(UIControl uiControl) {
         Transform playerAnchorParent = Instantiate(playerAnchorPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 180, 0));
-        
+
         for (int i = 0; i < uiControl.players.Count; i++) {
             // Spawn a player prefab
             Transform playerAnchor = Instantiate(playerPrefab, playerAnchorParent);
@@ -107,7 +107,9 @@ public class GameInitializer : MonoBehaviour {
             DuckControls playerScript = playerAnchor.GetComponent<DuckControls>();
             playerScript.SetColor(possibleColors[i]);
             playerScript.SetHat(uiControl.players[i].customizer.hatCounter);
-            currentPlayers.Add(playerAnchor);
+            playerScript.playerInfo = uiControl.players[i];
+
+        currentPlayers.Add(playerAnchor);
             
             // Set keycodes for players
             playerScript.keyUp = uiControl.players[i].playerUp != KeyCode.None ? uiControl.players[i].playerUp: standardCodes[i,0];

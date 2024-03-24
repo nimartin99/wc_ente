@@ -19,6 +19,7 @@ public class DuckControls : MonoBehaviour
     public List<GameObject> possibleHats;
     public GameObject playerModel;
 
+    public PlayerInfo playerInfo;
    
     //the radius of the pipe for grounding
     public float radius = .45f;
