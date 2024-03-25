@@ -129,5 +129,9 @@
     width: 50%;
     flex-direction: column;
     height: 20%;
-    margin-top: 10%;
+    margin-top: 19%;
+}
+
+.unity-base-field__label {
+    color: rgb(255, 255, 255);
 }

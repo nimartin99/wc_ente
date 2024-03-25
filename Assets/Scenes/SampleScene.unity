@@ -1585,7 +1585,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 63.24755
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1611,8 +1611,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0066933883, y: 0.19115743, z: 0.0006289363, w: 0.9815364}
-  m_LocalPosition: {x: -2.3758965, y: 1.3942416, z: 10.853622}
+  m_LocalRotation: {x: 0.020037094, y: -0.97964084, z: 0.12797505, w: 0.15337761}
+  m_LocalPosition: {x: -2.1915755, y: 1.5376017, z: 13.172983}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2051,6 +2051,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064036168}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1136431886 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 963962951457105610, guid: ba6d3a1004b07c646a4d8f873dfb6259, type: 3}
+  m_PrefabInstance: {fileID: 444143208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f07a1dae134cb564db96203486eda7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1143132782
 GameObject:
   m_ObjectHideFlags: 0
@@ -2114,6 +2125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keyConfiguration: {fileID: 9197481963319205126, guid: a454272c64cf41041a100790e3bca3da, type: 3}
   _gameOverUI: {fileID: 9197481963319205126, guid: 7557899aedd501247a3139655d7179f0, type: 3}
+  _obstacleSpawner: {fileID: 1136431886}
+  _powerUpSpawner: {fileID: 0}
   customizers:
   - {fileID: 1922285336}
   - {fileID: 687977336}

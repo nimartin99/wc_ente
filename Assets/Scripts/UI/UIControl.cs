@@ -9,15 +9,16 @@ using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class UIControl : MonoBehaviour
-{
-
-    
+{ 
     public static UIControl Instance { get; private set; }
-     VisualElement root;
+    VisualElement root;
     private UIDocument _uiDocument;
    [SerializeField] private VisualTreeAsset _keyConfiguration;
    [SerializeField] private VisualTreeAsset _gameOverUI;
-    
+
+   [SerializeField] private ObstacleSpawner _obstacleSpawner;
+   [SerializeField] private ObstacleSpawner _powerUpSpawner;
+   
     // Key config UI
     public List<PlayerInfo> players = new List<PlayerInfo>();
 
@@ -106,8 +107,12 @@ public class UIControl : MonoBehaviour
     }
 
     private void StartGame(ClickEvent clickEvent) {
+        // Slider stuff
+        SliderInt difficultySlider = root.Q<SliderInt>("difficultySlider");
+        _obstacleSpawner.spawnDelayAvg = difficultySlider.value;
+        
         _uiDocument.enabled = false;
-        GameInitializer.Instance.StartIntro();
+        GameInitializer.Instance.StartIntro(Mathf.Clamp(difficultySlider.value, 5, 10));
     }
 
     private void StartMenu(ClickEvent clickEvent) {
@@ -202,15 +207,16 @@ public class UIControl : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < players.Count; i++) {
-            
-                //duck Visualization
-                players[i].duckDisplay = root.Q<VisualElement>("player" + (i + 1) + "DuckDisplay");
-                RenderTexture renderTexture = players[i].customizer.renderTexture;
-                Texture2D cameraTexture = new Texture2D(renderTexture.width,renderTexture.height,DefaultFormat.LDR,1,TextureCreationFlags.None);
-                Graphics.CopyTexture(renderTexture, cameraTexture);
-                players[i].duckDisplay.style.backgroundImage = cameraTexture;
-            }
+            // Removed because we now use the configure camera
+            // for (int i = 0; i < players.Count; i++) {
+            //
+            //     //duck Visualization
+            //     players[i].duckDisplay = root.Q<VisualElement>("player" + (i + 1) + "DuckDisplay");
+            //     RenderTexture renderTexture = players[i].customizer.renderTexture;
+            //     Texture2D cameraTexture = new Texture2D(renderTexture.width,renderTexture.height,DefaultFormat.LDR,1,TextureCreationFlags.None);
+            //     Graphics.CopyTexture(renderTexture, cameraTexture);
+            //     players[i].duckDisplay.style.backgroundImage = cameraTexture;
+            // }
         }
        
     }

@@ -15,6 +15,7 @@ public class GameInitializer : MonoBehaviour {
     [SerializeField] private Transform playerAnchorPrefab;
     private Transform pipeSpawner;
     private Transform _zoomInCamera;
+    private float powerUpSpawnDelay;
     
     // Intro
     [SerializeField] private PlayableDirector director;
@@ -66,12 +67,14 @@ public class GameInitializer : MonoBehaviour {
         SpawnLevelPrefabs();
         SpawnPlayers(uiControl);
         powerUpSpawner.gameObject.SetActive(true);
+        powerUpSpawner.GetComponent<PowerUpSpawner>().spawnDelayAvg = powerUpSpawnDelay;
         ObstacleSpawner.Instance.spawnObstacles = true;
         Light.Instance.spawnLight = true;
         gameRunning = true;
     }
 
-    public void StartIntro() {
+    public void StartIntro(float powerUpSpawnDelaySlider) {
+        powerUpSpawnDelay = powerUpSpawnDelaySlider;
         director.Play();
     }
 

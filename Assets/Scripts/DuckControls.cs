@@ -31,9 +31,7 @@ public class DuckControls : MonoBehaviour
     
     // The power with which you push away yourself and enemies when touched
     [SerializeField] public float bounceForce = 10.0f; // Die Kraft, mit der die Spieler abprallen.
-
-
-
+    
     //relative zMovement of duck
     private float yMovement;
     //gravity of duck (jump)
@@ -53,6 +51,9 @@ public class DuckControls : MonoBehaviour
     public float totalMovement = 0;
     //the friction the duck slows down with after being pushed
     public float friction = 1;
+
+    public float yScale = 1f;
+    
     private void Start() {
         rb = GetComponent<Rigidbody>();
     }
@@ -81,13 +82,13 @@ public class DuckControls : MonoBehaviour
         if (Input.GetKey(keyDuck)) {
             transform.GetChild(0).localScale = new Vector3(
                 transform.GetChild(0).transform.localScale.x, 
-                .4f,
+                .4f * yScale,
                 transform.GetChild(0).transform.localScale.z 
             );
         } else {
             transform.GetChild(0).transform.localScale = new Vector3(
                 transform.GetChild(0).transform.localScale.x,
-                1,
+                yScale,
                 transform.GetChild(0).transform.localScale.z 
             );
         }
