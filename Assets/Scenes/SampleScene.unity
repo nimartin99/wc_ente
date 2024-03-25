@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2107,6 +2107,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064036168}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1127166131 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+  m_PrefabInstance: {fileID: 1196057659}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1136431886 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 963962951457105610, guid: ba6d3a1004b07c646a4d8f873dfb6259, type: 3}
@@ -2188,6 +2193,63 @@ MonoBehaviour:
   - {fileID: 687977336}
   - {fileID: 1514807455}
   - {fileID: 1284927430}
+--- !u!1001 &1196057659
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1473410316}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.002104064
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.020407869
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.69
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.07217454
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.07217454
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7034137
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7034137
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 78.283
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
+      propertyPath: m_Name
+      value: towel
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bd72d8e83c6ca1c498dbc4cd7aefb381, type: 3}
 --- !u!1 &1210188592
 GameObject:
   m_ObjectHideFlags: 0
@@ -3203,7 +3265,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 57e13018e7ada9b439e2865899282f0a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1127166131}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 57e13018e7ada9b439e2865899282f0a, type: 3}
       insertIndex: -1
