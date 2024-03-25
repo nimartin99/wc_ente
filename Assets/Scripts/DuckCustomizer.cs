@@ -5,10 +5,11 @@ using UnityEngine;
 public class DuckCustomizer : MonoBehaviour
 {
     public GameObject hat;
+    public int hatIndex;
     public Camera camera;
     public RenderTexture renderTexture;
     public int size = 256;
-
+    public static bool randomStartHat = true;
 
     public GameObject[] possibleHats;
 
@@ -16,15 +17,17 @@ public class DuckCustomizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChangeHat(Random.Range(0, possibleHats.Length));
+        if (randomStartHat) {
+            ChangeHat(Random.Range(0, possibleHats.Length));
+        }
         renderTexture = new RenderTexture(size, size, 16);
         camera.targetTexture = renderTexture;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void SetHat(int index) {
+        Destroy(hat);
+        hat = Instantiate(possibleHats[index],transform.position,transform.rotation,this.transform);
+        hatCounter = index;
     }
 
     public void ChangeHat(int hatIncrease)
@@ -38,7 +41,7 @@ public class DuckCustomizer : MonoBehaviour
             hatCounter = possibleHats.Length - 1;
         }
         hat = Instantiate(possibleHats[hatCounter],transform.position,transform.rotation,this.transform);
-        
+        hatIndex = hatCounter;
     }
 
 

@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
@@ -35,14 +36,37 @@ public class UIControl : MonoBehaviour
         if (Instance != null && Instance != this) { 
             Destroy(this); 
         } 
-        else { 
+        else {
             Instance = this; 
+        }
+
+        if (StateController.useState) {
+            _uiDocument = GetComponent<UIDocument>();
+            _uiDocument.enabled = false;
+            players = StateController.players;
+            DuckCustomizer.randomStartHat = false;
+            for (int i = 0; i < 4; i++) {
+                customizers[i].gameObject.SetActive(false);
+            }
+            for (int i = 0; i < players.Count; i++) {
+                customizers[i].gameObject.SetActive(true);
+                customizers[i].SetHat(StateController.hatIndices[i]);
+            }
+            _obstacleSpawner.spawnDelayAvg = StateController.difficulty;
+            GameInitializer.Instance.StartIntro(Mathf.Clamp(StateController.difficulty, 5, 10));
+        } else {
+            DuckCustomizer.randomStartHat = true;
         }
     }
     
     // Start is called before the first frame update
     void Start()
     {
+        if (StateController.useState) {
+            StateController.useState = false;
+            return;
+        }
+
         _uiDocument = GetComponent<UIDocument>();
 
          root = _uiDocument.rootVisualElement;
@@ -70,6 +94,17 @@ public class UIControl : MonoBehaviour
         root = _uiDocument.rootVisualElement;
         Label winningPlayerLabel = root.Q<Label>("winningPlayerLabel");
         winningPlayerLabel.text = "GAME OVER!\n" + winningPlayer.playerName + " won!";
+        Button returnToMenuButton = root.Q<Button>("returnToMenuButton");
+        returnToMenuButton.RegisterCallback<ClickEvent>((clickEvent) => Restart(clickEvent, false));
+        Button playAgainButton = root.Q<Button>("playAgainButton");
+        playAgainButton.RegisterCallback<ClickEvent>((clickEvent) => Restart(clickEvent, true));
+    }
+
+    private void Restart(ClickEvent clickEvent, bool playAgain) {
+        if (playAgain) {
+            StateController.useState = true;
+        }
+        SceneManager.LoadSceneAsync("SampleScene");
     }
 
     private void AddPlayer(ClickEvent clickEvent) {
@@ -110,8 +145,15 @@ public class UIControl : MonoBehaviour
         // Slider stuff
         SliderInt difficultySlider = root.Q<SliderInt>("difficultySlider");
         _obstacleSpawner.spawnDelayAvg = difficultySlider.value;
-        
         _uiDocument.enabled = false;
+        
+        // Safe info in StateController so they can be loaded when hitting Play again in end screen
+        StateController.players = players;
+        StateController.difficulty = difficultySlider.value;
+        for (int i = 0; i < players.Count; i++) {
+            StateController.hatIndices[i] = customizers[i].hatIndex;
+        }
+        
         GameInitializer.Instance.StartIntro(Mathf.Clamp(difficultySlider.value, 5, 10));
     }
 
