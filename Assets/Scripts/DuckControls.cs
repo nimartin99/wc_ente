@@ -19,6 +19,7 @@ public class DuckControls : MonoBehaviour
     public List<GameObject> possibleHats;
     public GameObject playerModel;
 
+    public PlayerInfo playerInfo;
    
     //the radius of the pipe for grounding
     public float radius = .45f;
@@ -30,9 +31,7 @@ public class DuckControls : MonoBehaviour
     
     // The power with which you push away yourself and enemies when touched
     [SerializeField] public float bounceForce = 10.0f; // Die Kraft, mit der die Spieler abprallen.
-
-
-
+    
     //relative zMovement of duck
     private float yMovement;
     //gravity of duck (jump)
@@ -52,6 +51,9 @@ public class DuckControls : MonoBehaviour
     public float totalMovement = 0;
     //the friction the duck slows down with after being pushed
     public float friction = 1;
+
+    public float yScale = 1f;
+    
     private void Start() {
         rb = GetComponent<Rigidbody>();
     }
@@ -78,16 +80,16 @@ public class DuckControls : MonoBehaviour
             _isGrounded = false;
         }
         if (Input.GetKey(keyDuck)) {
-            duckModel.transform.localScale = new Vector3(
-                duckModel.transform.localScale.x, 
-                .4f,
-                duckModel.transform.localScale.z 
+            transform.GetChild(0).localScale = new Vector3(
+                transform.GetChild(0).transform.localScale.x, 
+                .4f * yScale,
+                transform.GetChild(0).transform.localScale.z 
             );
         } else {
-            duckModel.transform.localScale = new Vector3(
-                duckModel.transform.localScale.x,
-                1,
-                duckModel.transform.localScale.z 
+            transform.GetChild(0).transform.localScale = new Vector3(
+                transform.GetChild(0).transform.localScale.x,
+                yScale,
+                transform.GetChild(0).transform.localScale.z 
             );
         }
 

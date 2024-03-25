@@ -69,7 +69,7 @@
     -unity-font-style: bold;
     background-image: url('project://database/Assets/Materials/brick_wall/textures/brick_wall_006_nor_gl_4k.exr?fileID=2800000&guid=22c2eae10343eff489f960703815d1cf&type=3#brick_wall_006_nor_gl_4k');
     -unity-background-image-tint-color: rgb(0, 0, 0);
-    width: 10%;
+    width: 20%;
     margin-left: 1.25%;
     margin-right: 1.25%;
     -unity-text-align: upper-center;
@@ -86,8 +86,8 @@
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
-    width: 20%;
-    height: 25%;
+    width: 50%;
+    height: 100%;
 }
 
 .changeHatButtonLeft {
@@ -99,6 +99,39 @@
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
-    width: 20%;
-    height: 25%;
+    width: 50%;
+    height: 100%;
+}
+
+.playerKeyRow {
+    flex-grow: initial;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    height: 20%;
+    align-items: center;
+}
+
+.changeHatContainer {
+    flex-grow: 1;
+    position: relative;
+    align-items: flex-end;
+    flex-direction: row;
+    width: 100%;
+    height: 20%;
+    justify-content: space-between;
+    max-height: 20%;
+    min-height: 20%;
+}
+
+.playerDisplayContainer {
+    flex-grow: 1;
+    width: 50%;
+    flex-direction: column;
+    height: 20%;
+    margin-top: 19%;
+}
+
+.unity-base-field__label {
+    color: rgb(255, 255, 255);
 }

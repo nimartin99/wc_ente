@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.Playables;
 
 
 public class GameInitializer : MonoBehaviour {
@@ -12,6 +14,11 @@ public class GameInitializer : MonoBehaviour {
     [SerializeField] private Transform pipePrefab;
     [SerializeField] private Transform playerAnchorPrefab;
     private Transform pipeSpawner;
+    private Transform _zoomInCamera;
+    private float powerUpSpawnDelay;
+    
+    // Intro
+    [SerializeField] private PlayableDirector director;
 
     private Color[] possibleColors =
     {
@@ -47,7 +54,7 @@ public class GameInitializer : MonoBehaviour {
         // End the game
         if (currentPlayers.Count == 1 && gameRunning) {
             gameRunning = false;
-            UIControl.Instance.EndGame();
+            UIControl.Instance.EndGame(currentPlayers[0].GetComponent<DuckControls>().playerInfo);
         }
     }
     
@@ -60,40 +67,68 @@ public class GameInitializer : MonoBehaviour {
         SpawnLevelPrefabs();
         SpawnPlayers(uiControl);
         powerUpSpawner.gameObject.SetActive(true);
+        powerUpSpawner.GetComponent<PowerUpSpawner>().spawnDelayAvg = powerUpSpawnDelay;
         ObstacleSpawner.Instance.spawnObstacles = true;
         Light.Instance.spawnLight = true;
         gameRunning = true;
+    }
+
+    public void StartIntro(float powerUpSpawnDelaySlider) {
+        powerUpSpawnDelay = powerUpSpawnDelaySlider;
+        director.Play();
+    }
+
+    public void EndIntro() {
+        Debug.Log("EndIntro");
+        director.Stop();
+        StartGame(UIControl.Instance);
     }
     
     private void SpawnLevelPrefabs() {
         pipeSpawner = Instantiate(pipePrefab, new Vector3(0, 0, 0), Quaternion.Euler(90, 0, 0));
     }
 
+    private IEnumerator  DeactivateZoomInCamera(float delay) {
+        yield return new WaitForSeconds(delay);
+        _zoomInCamera.gameObject.SetActive(false);
+    }
+
     private void SpawnPlayers(UIControl uiControl) {
         Transform playerAnchorParent = Instantiate(playerAnchorPrefab, new Vector3(0, 0, 0), Quaternion.Euler(0, 180, 0));
-        
+
         for (int i = 0; i < uiControl.players.Count; i++) {
             // Spawn a player prefab
             Transform playerAnchor = Instantiate(playerPrefab, playerAnchorParent);
             playerAnchor.position = new Vector3(0, 0, 0);
-            playerAnchor.eulerAngles = new Vector3(0, 0, 90 * i);            
+            playerAnchor.eulerAngles = new Vector3(0, 0, 90 * i);
+
+            if (i == 0) {
+                _zoomInCamera = playerAnchor.GetChild(2);
+                _zoomInCamera.gameObject.SetActive(true);
+            }
 
             DuckControls playerScript = playerAnchor.GetComponent<DuckControls>();
             playerScript.SetColor(possibleColors[i]);
             playerScript.SetHat(uiControl.players[i].customizer.hatCounter);
-            currentPlayers.Add(playerAnchor);
+            playerScript.playerInfo = uiControl.players[i];
+
+        currentPlayers.Add(playerAnchor);
             
-     // Set keycodes for players
+            // Set keycodes for players
             playerScript.keyUp = uiControl.players[i].playerUp != KeyCode.None ? uiControl.players[i].playerUp: standardCodes[i,0];
             playerScript.keyLeft = uiControl.players[i].playerLeft != KeyCode.None ? uiControl.players[i].playerLeft: standardCodes[i,1];
             playerScript.keyDuck = uiControl.players[i].playerDuck != KeyCode.None ? uiControl.players[i].playerDuck: standardCodes[i,2];
             playerScript.keyRight = uiControl.players[i].playerRight != KeyCode.None ? uiControl.players[i].playerRight: standardCodes[i,3];
         }
         
+        // Deactivate the zoomInCamera after the amount of time
+        StartCoroutine(DeactivateZoomInCamera(0.05f));
+        
         // Set the Camera as child of the playerAnchorParent
-        Camera.main.transform.SetParent(playerAnchorParent);
-        Camera.main.transform.position = new Vector3(playerAnchorParent.position.x, playerAnchorParent.position.y,
-            playerAnchorParent.position.z + 1f);
+        // Camera.main.transform.SetParent(playerAnchorParent);
+        // Camera.main.transform.position = new Vector3(playerAnchorParent.position.x, playerAnchorParent.position.y,
+        //     playerAnchorParent.position.z + 1f);
+        
         PipeGenerator pipeGenerator = pipeSpawner.GetComponent<PipeGenerator>();
         pipeGenerator.objectToMove = playerAnchorParent.gameObject;
     }

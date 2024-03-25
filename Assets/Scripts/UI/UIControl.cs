@@ -5,19 +5,21 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class UIControl : MonoBehaviour
-{
-
-    
+{ 
     public static UIControl Instance { get; private set; }
-     VisualElement root;
+    VisualElement root;
     private UIDocument _uiDocument;
    [SerializeField] private VisualTreeAsset _keyConfiguration;
    [SerializeField] private VisualTreeAsset _gameOverUI;
-    
+
+   [SerializeField] private ObstacleSpawner _obstacleSpawner;
+   [SerializeField] private ObstacleSpawner _powerUpSpawner;
+   
     // Key config UI
     public List<PlayerInfo> players = new List<PlayerInfo>();
 
@@ -34,14 +36,37 @@ public class UIControl : MonoBehaviour
         if (Instance != null && Instance != this) { 
             Destroy(this); 
         } 
-        else { 
+        else {
             Instance = this; 
+        }
+
+        if (StateController.useState) {
+            _uiDocument = GetComponent<UIDocument>();
+            _uiDocument.enabled = false;
+            players = StateController.players;
+            DuckCustomizer.randomStartHat = false;
+            for (int i = 0; i < 4; i++) {
+                customizers[i].gameObject.SetActive(false);
+            }
+            for (int i = 0; i < players.Count; i++) {
+                customizers[i].gameObject.SetActive(true);
+                customizers[i].SetHat(StateController.hatIndices[i]);
+            }
+            _obstacleSpawner.spawnDelayAvg = StateController.difficulty;
+            GameInitializer.Instance.StartIntro(Mathf.Clamp(StateController.difficulty, 5, 10));
+        } else {
+            DuckCustomizer.randomStartHat = true;
         }
     }
     
     // Start is called before the first frame update
     void Start()
     {
+        if (StateController.useState) {
+            StateController.useState = false;
+            return;
+        }
+
         _uiDocument = GetComponent<UIDocument>();
 
          root = _uiDocument.rootVisualElement;
@@ -62,10 +87,24 @@ public class UIControl : MonoBehaviour
         _BegingButton.RegisterCallback<ClickEvent>(StartMenu);   
     }
     
-    public void EndGame() {
+    public void EndGame(PlayerInfo winningPlayer) {
         Debug.Log("Game is over");
         _uiDocument.enabled = true;
         _uiDocument.visualTreeAsset = _gameOverUI;
+        root = _uiDocument.rootVisualElement;
+        Label winningPlayerLabel = root.Q<Label>("winningPlayerLabel");
+        winningPlayerLabel.text = "GAME OVER!\n" + winningPlayer.playerName + " won!";
+        Button returnToMenuButton = root.Q<Button>("returnToMenuButton");
+        returnToMenuButton.RegisterCallback<ClickEvent>((clickEvent) => Restart(clickEvent, false));
+        Button playAgainButton = root.Q<Button>("playAgainButton");
+        playAgainButton.RegisterCallback<ClickEvent>((clickEvent) => Restart(clickEvent, true));
+    }
+
+    private void Restart(ClickEvent clickEvent, bool playAgain) {
+        if (playAgain) {
+            StateController.useState = true;
+        }
+        SceneManager.LoadSceneAsync("SampleScene");
     }
 
     private void AddPlayer(ClickEvent clickEvent) {
@@ -103,8 +142,19 @@ public class UIControl : MonoBehaviour
     }
 
     private void StartGame(ClickEvent clickEvent) {
+        // Slider stuff
+        SliderInt difficultySlider = root.Q<SliderInt>("difficultySlider");
+        _obstacleSpawner.spawnDelayAvg = difficultySlider.value;
         _uiDocument.enabled = false;
-        GameInitializer.Instance.StartGame(this);
+        
+        // Safe info in StateController so they can be loaded when hitting Play again in end screen
+        StateController.players = players;
+        StateController.difficulty = difficultySlider.value;
+        for (int i = 0; i < players.Count; i++) {
+            StateController.hatIndices[i] = customizers[i].hatIndex;
+        }
+        
+        GameInitializer.Instance.StartIntro(Mathf.Clamp(difficultySlider.value, 5, 10));
     }
 
     private void StartMenu(ClickEvent clickEvent) {
@@ -115,13 +165,9 @@ public class UIControl : MonoBehaviour
     private void ConfigurationScreen() {
         // Configure the button that starts the game
         root = _uiDocument.rootVisualElement;
-         
-         
-         
         _playButton = root.Q<Button>("playButton");
         _playButton.RegisterCallback<ClickEvent>(StartGame);
         
-        // For testing purposes we always start with 2 players
         for (int i = 0; i < _playerNameContainer.childCount; i++) {
             PlayerInfo playerInfo = new PlayerInfo();
             TextField playerNameTextfield = _playerNameContainer.Q<TextField>("UserName" + (i + 1));
@@ -136,13 +182,14 @@ public class UIControl : MonoBehaviour
 
         for (int i = 0; i < 4; i++) {
             VisualElement playerKeyRow = root.Q<VisualElement>("player" + (i + 1) + "KeyRow");
-            playerKeyRow.style.display = DisplayStyle.None;
+            playerKeyRow.visible = false;
+            customizers[i].gameObject.SetActive(false);
         }
 
         // Configure the players by searching the belonging button and labels in the UI root
         for (int i = 0; i < players.Count; i++) {
             VisualElement playerKeyRow = root.Q<VisualElement>("player" + (i + 1) + "KeyRow");
-            playerKeyRow.style.display = DisplayStyle.Flex;
+            playerKeyRow.visible = true;
             Button activatorButton = root.Q<Button>("player" + (i + 1) + "ActivateButton");
             activatorButton.text = players[i].playerName;
             players[i].activateButton = activatorButton;
@@ -153,7 +200,7 @@ public class UIControl : MonoBehaviour
             players[i].playerRightLabel = root.Q<Label>("player" + (i + 1) + "RightLabel");
             
             //duck Visualization
-
+            customizers[i].gameObject.SetActive(true);
             players[i].customizer = customizers[i];
             players[i].duckDisplay = root.Q<VisualElement>("player" + (i + 1) + "DuckDisplay");
             players[i].changeHatButtonLeft = root.Q<Button>("player" + (i + 1) + "ChangeHatLeft");
@@ -202,15 +249,16 @@ public class UIControl : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < players.Count; i++) {
-            
-                //duck Visualization
-                players[i].duckDisplay = root.Q<VisualElement>("player" + (i + 1) + "DuckDisplay");
-                RenderTexture renderTexture = players[i].customizer.renderTexture;
-                Texture2D cameraTexture = new Texture2D(renderTexture.width,renderTexture.height,DefaultFormat.LDR,1,TextureCreationFlags.None);
-                Graphics.CopyTexture(renderTexture, cameraTexture);
-                players[i].duckDisplay.style.backgroundImage = cameraTexture;
-            }
+            // Removed because we now use the configure camera
+            // for (int i = 0; i < players.Count; i++) {
+            //
+            //     //duck Visualization
+            //     players[i].duckDisplay = root.Q<VisualElement>("player" + (i + 1) + "DuckDisplay");
+            //     RenderTexture renderTexture = players[i].customizer.renderTexture;
+            //     Texture2D cameraTexture = new Texture2D(renderTexture.width,renderTexture.height,DefaultFormat.LDR,1,TextureCreationFlags.None);
+            //     Graphics.CopyTexture(renderTexture, cameraTexture);
+            //     players[i].duckDisplay.style.backgroundImage = cameraTexture;
+            // }
         }
        
     }
