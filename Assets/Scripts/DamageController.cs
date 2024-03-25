@@ -35,7 +35,7 @@ public class DamageController : MonoBehaviour
         if (other.CompareTag("Obstacle") && !isShieldActive)
         {
             Debug.Log("Collision with obstacle");
-            health = Mathf.Max(health - 50, 0); // Decrease health but not below 0
+            health = Mathf.Max(health - 33.4f, 0); // Decrease health but not below 0
             UpdateHealthUI(); // Update the health UI
 
             if (regainHealthCoroutine != null)
@@ -49,6 +49,20 @@ public class DamageController : MonoBehaviour
             DuckControls opponent =  other.gameObject.GetComponentInParent<DuckControls>();
             myDuck.pushMovement = opponent.zRotation * opponent.bounceForce * other.transform.localScale.x;
             opponent.pushMovement = myDuck.zRotation * myDuck.bounceForce * transform.localScale.x;
+        }
+        if (other.CompareTag("Water"))
+        {
+            Debug.Log("Collision with obstacle");
+            health = Mathf.Max(health - 33.4f, 0); // Decrease health but not below 0
+            UpdateHealthUI(); // Update the health UI
+
+            if (regainHealthCoroutine != null)
+            {
+                StopCoroutine(regainHealthCoroutine);
+                regainHealthCoroutine = null;
+            }
+            UpdateHealthUI(); // Update the health UI
+
         }
     }
 

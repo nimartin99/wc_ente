@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
-
-
+    
 public class GameInitializer : MonoBehaviour {
     public bool gameRunning;
     public List<Transform> currentPlayers = new List<Transform>();
+    public List<APlayer> activePlayers = new List<APlayer>();
     public static GameInitializer Instance { get; private set; }
     [SerializeField] private Transform playerPrefab;
     [SerializeField] private Transform powerUpSpawner;
     [SerializeField] private Transform pipePrefab;
     [SerializeField] private Transform playerAnchorPrefab;
+    public DuckCustomizer[] allPlayercustomizer;
     private Transform pipeSpawner;
+    public GameObject WaveSet;
+    public GameObject WaveSet2;
     private Transform _zoomInCamera;
     private float powerUpSpawnDelay;
     
@@ -111,9 +113,16 @@ public class GameInitializer : MonoBehaviour {
             playerScript.SetColor(possibleColors[i]);
             playerScript.SetHat(uiControl.players[i].customizer.hatCounter);
             playerScript.playerInfo = uiControl.players[i];
+            currentPlayers.Add(playerAnchor);
 
-        currentPlayers.Add(playerAnchor);
-            
+
+            APlayer playerReference = new APlayer();
+            playerReference.isActive = true;
+            playerReference.myIndex = i;
+            playerReference.player = playerAnchor;
+
+            GameInitializer.Instance.activePlayers.Add(playerReference);
+
             // Set keycodes for players
             playerScript.keyUp = uiControl.players[i].playerUp != KeyCode.None ? uiControl.players[i].playerUp: standardCodes[i,0];
             playerScript.keyLeft = uiControl.players[i].playerLeft != KeyCode.None ? uiControl.players[i].playerLeft: standardCodes[i,1];
@@ -132,4 +141,13 @@ public class GameInitializer : MonoBehaviour {
         PipeGenerator pipeGenerator = pipeSpawner.GetComponent<PipeGenerator>();
         pipeGenerator.objectToMove = playerAnchorParent.gameObject;
     }
+}
+
+[System.Serializable]
+public class APlayer
+{
+    
+    public bool isActive;
+    public Transform player;
+    public int myIndex;
 }

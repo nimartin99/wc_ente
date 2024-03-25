@@ -67,6 +67,13 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: 92cca3426d274b74bb1eb37c40d1ae41, type: 3}
   - {fileID: 919132149155446097, guid: 0a057a84a630881409be34d966c2e9b9, type: 3}
   playerModel: {fileID: 5066369124807727725}
+  playerInfo:
+    playerName: 
+    customizer: {fileID: 0}
+    playerUp: 0
+    playerLeft: 0
+    playerDuck: 0
+    playerRight: 0
   radius: 0.5
   duck: {fileID: 5219072569351555039}
   anchor: {fileID: 7981358162294918825}
@@ -80,6 +87,11 @@ MonoBehaviour:
   pushMovement: 0
   totalMovement: 0
   friction: 0.9
+  yScale: 1
+  isSpeedActive: 0
+  isShieldActive: 0
+  isScaleUpActive: 0
+  isScaleDownActive: 0
 --- !u!1 &736451832766916921
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3570297008650509217
 RectTransform:
   m_ObjectHideFlags: 0

@@ -178,6 +178,9 @@ public class UIControl : MonoBehaviour
             }
             players.Add(playerInfo);
             Debug.Log(playerInfo.playerName = playerNameTextfield.value);
+
+            
+            
         }
 
         for (int i = 0; i < 4; i++) {

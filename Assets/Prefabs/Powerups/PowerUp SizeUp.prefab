@@ -218,3 +218,4 @@ MonoBehaviour:
   ScaleUp: {fileID: 21300000, guid: a47ce935127a11e4aa19c745f7e77af2, type: 3}
   PowerUpTarget: {fileID: 0}
   scalingFactor: 2
+  isScalingUp: 1
