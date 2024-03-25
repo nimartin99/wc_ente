@@ -23,6 +23,7 @@ public class ObstacleSpawner : MonoBehaviour
     private float lastSpawn = 0;
     // the chosen spawn delay for the current obstacle
     private float spawnDelay = 0;
+    private float lastrandomPipeProgress = 0;
     
     private void Awake() {
         // Singleton pattern
@@ -44,37 +45,42 @@ public class ObstacleSpawner : MonoBehaviour
         // generate random index to choose which obstacle to spawn
         int spawnIndex = Random.Range(0, obstaclePrefabs.Length);
         
-        if(PipeGenerator.Instance == null )
-        {
+        if(PipeGenerator.Instance == null ) {
             return;
         }
-        if (PipeGenerator.Instance.currentPipes.Length > 0)
-        {
+        if (PipeGenerator.Instance.currentPipes.Length > 0) {
             // ^1 means last index
             Transform lastPipe = PipeGenerator.Instance.currentPipes[^1];
-            if( lastPipe == null )
-            {
-                return;
-            }
             float randomPipeProgress = Random.Range(0.1f, 0.9f);
             //Vector3 spawnPoint = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress);
             lastPipe.gameObject.TryGetComponent<Pipe>(out Pipe pi);
 
             Vector3 spawnPoint = pi.MoveAlong(randomPipeProgress);
+            
             // Adjust the rotation angle of the object based on the next step in the Bezier curve
             Vector3 nextPosition = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress + 0.01f);
-
+            
             GameObject newObstacle = Instantiate(obstaclePrefabs[spawnIndex], spawnPoint, Quaternion.identity, transform);
-
-            newObstacle.GetComponent<Rigidbody>().AddExplosionForce(exploForce, nextPosition, 1.0f);
-
+    
+            //turn around own axis except if it is the tampon (the string of the tampon will look strange if turned)
+            if (obstaclePrefabs[spawnIndex].name != "TamponObstacle")
+            {
+                newObstacle.transform.Rotate(new Vector3(0, 0, 1), Random.Range(0.0f, 360.0f), Space.Self);
+    
+                //add force to objects -> got kicked out 
+                /*if(newObstacle.GetComponent<Rigidbody>() != null) 
+                {
+                    newObstacle.GetComponent<ForceApplication>().AlterDelay(randomPipeProgress,nextPosition);
+                }*/
+            }
+            
+    
             currentObstacles.Add(newObstacle.transform);
-
+            
             // set new random delay
             spawnDelay = Random.Range((1 - spawnDelayVariance) * spawnDelayAvg, (1 + spawnDelayVariance) * spawnDelayAvg);
             // reset last spawn
             lastSpawn = Time.time;
         }
-       
     }
 }
