@@ -52,6 +52,11 @@ public class ObstacleSpawner : MonoBehaviour
             // ^1 means last index
             Transform lastPipe = PipeGenerator.Instance.currentPipes[^1];
             float randomPipeProgress = Random.Range(0.1f, 0.9f);
+            if(randomPipeProgress==lastrandomPipeProgress)
+            {
+                randomPipeProgress += 0.2f;
+            }
+            lastrandomPipeProgress = randomPipeProgress;
             //Vector3 spawnPoint = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress);
             lastPipe.gameObject.TryGetComponent<Pipe>(out Pipe pi);
 
