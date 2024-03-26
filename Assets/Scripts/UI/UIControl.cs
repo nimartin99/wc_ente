@@ -52,8 +52,8 @@ public class UIControl : MonoBehaviour
                 customizers[i].gameObject.SetActive(true);
                 customizers[i].SetHat(StateController.hatIndices[i]);
             }
-            _obstacleSpawner.spawnDelayAvg = StateController.difficulty;
-            GameInitializer.Instance.StartIntro(Mathf.Clamp(StateController.difficulty, 5, 10));
+            _obstacleSpawner.spawnDelayAvg = StateController.difficulty-0.5f;
+            GameInitializer.Instance.StartIntro(Mathf.Clamp(StateController.difficulty+5, 5, 10));
         } else {
             DuckCustomizer.randomStartHat = true;
         }
@@ -153,8 +153,7 @@ public class UIControl : MonoBehaviour
         for (int i = 0; i < players.Count; i++) {
             StateController.hatIndices[i] = customizers[i].hatIndex;
         }
-        
-        GameInitializer.Instance.StartIntro(Mathf.Clamp(difficultySlider.value, 5, 10));
+        GameInitializer.Instance.StartIntro(Mathf.Clamp(difficultySlider.value+5, 5, 10));
     }
 
     private void StartMenu(ClickEvent clickEvent) {
