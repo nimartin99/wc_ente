@@ -60,7 +60,7 @@ public class ObstacleSpawner : MonoBehaviour
             // Adjust the rotation angle of the object based on the next step in the Bezier curve
             Vector3 nextPosition = lastPipe.GetComponent<Pipe>().MoveAlong(randomPipeProgress + 0.01f);
             
-            GameObject newObstacle = Instantiate(obstaclePrefabs[spawnIndex], spawnPoint, Quaternion.identity, transform);
+            GameObject newObstacle = Instantiate(obstaclePrefabs[spawnIndex], spawnPoint, lastPipe.transform.rotation, transform);
     
             //turn around own axis except if it is the tampon (the string of the tampon will look strange if turned)
             if (obstaclePrefabs[spawnIndex].name != "TamponObstacle")
