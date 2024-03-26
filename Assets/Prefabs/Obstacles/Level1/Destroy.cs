@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Destroy : MonoBehaviour
 {
+    [SerializeField]
     float delay = 15;
     float start = 0;
     // Start is called before the first frame update
