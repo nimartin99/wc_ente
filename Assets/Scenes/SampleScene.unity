@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1128,10 +1128,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameRunning: 0
   currentPlayers: []
+  activePlayers: []
   playerPrefab: {fileID: 7981358162294918825, guid: 967d7c4f23e704c4499f0de62d9ebbfa, type: 3}
   powerUpSpawner: {fileID: 35433135}
   pipePrefab: {fileID: 675532662144954221, guid: 9a90352b65b85b843ab51ae748690296, type: 3}
   playerAnchorPrefab: {fileID: 2770490593747773115, guid: cfbe16e204a850948a5362ea30df9133, type: 3}
+  allPlayercustomizer: []
+  WaveSet: {fileID: 0}
+  WaveSet2: {fileID: 0}
   director: {fileID: 1007914358}
 --- !u!4 &750440852
 Transform:
@@ -1668,7 +1672,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.020037094, y: -0.97964084, z: 0.12797505, w: 0.15337761}
-  m_LocalPosition: {x: -2.1915755, y: 1.5376017, z: 13.172983}
+  m_LocalPosition: {x: -2.2005358, y: 1.6502416, z: 13.144823}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2188,6 +2192,7 @@ MonoBehaviour:
   _gameOverUI: {fileID: 9197481963319205126, guid: 7557899aedd501247a3139655d7179f0, type: 3}
   _obstacleSpawner: {fileID: 1136431886}
   _powerUpSpawner: {fileID: 0}
+  players: []
   customizers:
   - {fileID: 1922285336}
   - {fileID: 687977336}
@@ -4144,7 +4149,7 @@ Transform:
   m_GameObject: {fileID: 1845131847}
   serializedVersion: 2
   m_LocalRotation: {x: 0.12797505, y: 0.1533776, z: -0.020037092, w: 0.97964084}
-  m_LocalPosition: {x: 8.755, y: 1.691, z: 8.418}
+  m_LocalPosition: {x: 8.762, y: 1.779, z: 8.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

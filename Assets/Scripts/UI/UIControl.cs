@@ -28,6 +28,7 @@ public class UIControl : MonoBehaviour
 
     private VisualElement _playerNameContainer;
     private Button _addPlayerButton;
+    private Button _removePlayerButton;
     private Button _playButton;
     private Button _BegingButton;
     public DuckCustomizer[] customizers;
@@ -75,6 +76,8 @@ public class UIControl : MonoBehaviour
          _playerNameContainer = root.Q<VisualElement>("PlayerNameContainer");
          _addPlayerButton = root.Q<Button>("AddPlayerButton");
          _addPlayerButton.RegisterCallback<ClickEvent>(AddPlayer);  
+         _removePlayerButton = root.Q<Button>("RemovePlayerButton");
+         _removePlayerButton.RegisterCallback<ClickEvent>(RemovePlayer); 
          
          // Fill the names with random funny ones
          for (int i = 0; i < _playerNameContainer.childCount; i++) {
@@ -116,6 +119,19 @@ public class UIControl : MonoBehaviour
         _playerNameContainer.Add(playerTextField);
         if (_playerNameContainer.childCount == 4) {
             _addPlayerButton.visible = false;
+        }
+        if (_playerNameContainer.childCount > 2) {
+            _removePlayerButton.visible = true;
+        }
+    }
+    
+    private void RemovePlayer(ClickEvent clickEvent) {
+        _playerNameContainer.RemoveAt(_playerNameContainer.childCount - 1);
+        if (_playerNameContainer.childCount == 2) {
+            _removePlayerButton.visible = false;
+        }
+        if (_playerNameContainer.childCount < 4) {
+            _addPlayerButton.visible = true;
         }
     }
     

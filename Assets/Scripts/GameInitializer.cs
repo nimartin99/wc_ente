@@ -38,9 +38,9 @@ public class GameInitializer : MonoBehaviour {
     private KeyCode[,] standardCodes =
     {
         { KeyCode.W,KeyCode.A,KeyCode.S,KeyCode.D },
-        { KeyCode.Z,KeyCode.G,KeyCode.H,KeyCode.J },
         { KeyCode.UpArrow,KeyCode.LeftArrow,KeyCode.DownArrow,KeyCode.RightArrow },
-        { KeyCode.UpArrow,KeyCode.LeftArrow,KeyCode.DownArrow,KeyCode.RightArrow }
+        { KeyCode.I,KeyCode.J,KeyCode.K,KeyCode.L },
+        { KeyCode.H,KeyCode.V,KeyCode.B,KeyCode.N },
     };
     
     private void Awake() {
