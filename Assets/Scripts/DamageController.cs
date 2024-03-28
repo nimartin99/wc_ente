@@ -18,13 +18,13 @@ public class DamageController : MonoBehaviour
     private void OnEnable()
     {
        // healthText = GetComponentInChildren<TextMeshProUGUI>(); // Find and assign the TextMesh Pro component
-
-        UpdateHealthUI(); // Update the health UI when the object is enabled
+       UpdateHealthUI(); // Update the health UI when the object is enabled
     }
 
     private void Update()
     {
         if (health == 0) {
+            AudioManager.Instance.PlayDeath();
             GameInitializer.Instance.currentPlayers.Remove(transform.parent);
             Destroy(transform.parent.gameObject);
         }
@@ -35,6 +35,9 @@ public class DamageController : MonoBehaviour
         if (other.CompareTag("Obstacle") && !isShieldActive)
         {
             Debug.Log("Collision with obstacle");
+            if (Mathf.Max(health - 33.4f, 0) != 0) {
+                AudioManager.Instance.PlayDamage();
+            }
             health = Mathf.Max(health - 33.4f, 0); // Decrease health but not below 0
             UpdateHealthUI(); // Update the health UI
 

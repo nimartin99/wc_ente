@@ -20,6 +20,7 @@ public class PowerUp : MonoBehaviour {
     }
 
     protected virtual void PowerUpCollected(GameObject hit) {
+        AudioManager.Instance.PlayPickup();
         StartCoroutine(PowerUpElapsed(hit, duration));
     }
 

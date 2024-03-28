@@ -36,7 +36,7 @@ public class UIControl : MonoBehaviour
     private void Awake() {
         if (Instance != null && Instance != this) { 
             Destroy(this); 
-        } 
+        }
         else {
             Instance = this; 
         }
@@ -92,6 +92,7 @@ public class UIControl : MonoBehaviour
     
     public void EndGame(PlayerInfo winningPlayer) {
         Debug.Log("Game is over");
+        AudioManager.Instance.GameOver();
         _uiDocument.enabled = true;
         _uiDocument.visualTreeAsset = _gameOverUI;
         root = _uiDocument.rootVisualElement;
@@ -104,6 +105,7 @@ public class UIControl : MonoBehaviour
     }
 
     private void Restart(ClickEvent clickEvent, bool playAgain) {
+        AudioManager.Instance.PlayMenuClick();
         if (playAgain) {
             StateController.useState = true;
         }
@@ -111,6 +113,7 @@ public class UIControl : MonoBehaviour
     }
 
     private void AddPlayer(ClickEvent clickEvent) {
+        AudioManager.Instance.PlayMenuClick();
         TextField playerTextField = new TextField();
         playerTextField.name = "UserName" + (_playerNameContainer.childCount + 1);
         playerTextField.AddToClassList("playerNameField");
@@ -126,6 +129,7 @@ public class UIControl : MonoBehaviour
     }
     
     private void RemovePlayer(ClickEvent clickEvent) {
+        AudioManager.Instance.PlayMenuClick();
         _playerNameContainer.RemoveAt(_playerNameContainer.childCount - 1);
         if (_playerNameContainer.childCount == 2) {
             _removePlayerButton.visible = false;
@@ -140,12 +144,14 @@ public class UIControl : MonoBehaviour
     /// </summary>
     /// <param name="clickEvent"></param>
     private void ActivateCapturing(ClickEvent clickEvent) {
+        AudioManager.Instance.PlayMenuClick();
         VisualElement target = (Button) clickEvent.target;
         playerCapturing = target.name[6] - '0';
     }
 
     private void ChangeHat(ClickEvent clickEvent)
     {
+        AudioManager.Instance.PlayMenuClick();
         VisualElement target = (Button) clickEvent.target;
         int playerId = target.name[6]- '0';
         playerId -= 1;
@@ -158,6 +164,7 @@ public class UIControl : MonoBehaviour
     }
 
     private void StartGame(ClickEvent clickEvent) {
+        AudioManager.Instance.PlayMenuClick();
         // Slider stuff
         SliderInt difficultySlider = root.Q<SliderInt>("difficultySlider");
         _obstacleSpawner.spawnDelayAvg = difficultySlider.value;
@@ -173,6 +180,7 @@ public class UIControl : MonoBehaviour
     }
 
     private void StartMenu(ClickEvent clickEvent) {
+        AudioManager.Instance.PlayMenuClick();
         _uiDocument.visualTreeAsset = _keyConfiguration;
         ConfigurationScreen();
     }

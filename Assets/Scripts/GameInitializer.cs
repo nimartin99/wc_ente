@@ -78,6 +78,7 @@ public class GameInitializer : MonoBehaviour {
     public void StartIntro(float powerUpSpawnDelaySlider) {
         powerUpSpawnDelay = powerUpSpawnDelaySlider;
         director.Play();
+        StartCoroutine(AudioManager.Instance.FadeOut(AudioManager.Instance.audioSources[0], 6f));
     }
 
     public void EndIntro() {
