@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class PipeGenerator : MonoBehaviour {
     public static PipeGenerator Instance { get; private set; }
-    
+
     [SerializeField] private Transform straightPipe;
     [SerializeField] private Transform curveRightPipe;
     [SerializeField] private Transform curveLeftPipe;
@@ -17,7 +17,7 @@ public class PipeGenerator : MonoBehaviour {
     private float singlePipeProgress = 0;
     public Vector3 currentEndPoint;
     private float currentEndRotation;
-    
+
     private PipeType[] debugPipe = new[] { PipeType.Straight, PipeType.CurveLeft, PipeType.CurveRight };
     private int index;
 
@@ -25,6 +25,10 @@ public class PipeGenerator : MonoBehaviour {
     //has to be kept between -1 and 1
     //TODO: implement better solution that allows for 180 turns
     private float turncounter;
+
+    // Speed increase
+    [SerializeField] private float moveSpeed = 2.0f;
+    [SerializeField] private float speedIncrease = 0.025f;
     
     public enum PipeType {
         Straight,
@@ -57,8 +61,8 @@ public class PipeGenerator : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
+        moveSpeed += speedIncrease * Time.deltaTime;
         if (objectToMove) {
             MoveObjectThroughPipes(objectToMove);
         }
@@ -75,7 +79,7 @@ public class PipeGenerator : MonoBehaviour {
     }
     
     private void MoveObjectThroughPipes(GameObject obj) {
-        float moveValue = 2.0f * Time.deltaTime;
+        float moveValue = moveSpeed * Time.deltaTime;
         singlePipeProgress += moveValue;
         
         // Calculate the position on the Bezier curve

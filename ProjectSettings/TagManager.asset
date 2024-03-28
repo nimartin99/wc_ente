@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Water
+  - PlayerAnchor
   layers:
   - Default
   - TransparentFX

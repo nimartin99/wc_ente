@@ -2876,6 +2876,8 @@ MonoBehaviour:
   curveRightPipe: {fileID: 595840473556856564, guid: dfdc055356f526a40aaeee76bd5a1db9, type: 3}
   curveLeftPipe: {fileID: 595840473556856564, guid: 90ae4a11c6ba4f647907ffdb048b0300, type: 3}
   currentEndPoint: {x: 0, y: 0, z: 0}
+  moveSpeed: 2
+  speedIncrease: 0.018
   currentPipes:
   - {fileID: 0}
   - {fileID: 0}
