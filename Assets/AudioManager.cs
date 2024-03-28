@@ -48,7 +48,8 @@ public class AudioManager : MonoBehaviour {
     public void GameOver() {
         StartCoroutine(FadeOut(audioSources[1], 12f));
         audioSources[2].enabled = false;
-        audioSources[3].enabled = false;
+        // Only Fade out death long so last death will be played still
+        FadeOut(audioSources[3], 12f);
         audioSources[4].enabled = false;
     }
     
